@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Cheat Sheet</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      background: #0a0a0a;
+      color: #d0d0d0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .header {
+      text-align: center;
+      padding: 32px 20px 24px;
+      border-bottom: 1px solid #222;
+    }
+    .header h1 {
+      font-size: 1.8rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .header p {
+      color: #666;
+      font-size: 0.85rem;
+    }
+    .header p a { color: #888; text-decoration: none; }
+    .header p a:hover { color: #d4a574; }
+    .back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .back-link:hover { color: #fff; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1px;
+      background: #1a1a1a;
+      padding: 16px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section {
+      background: #0f0f0f;
+      padding: 16px 18px;
+      border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      margin: 6px;
+    }
+    .section h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #d4a574;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .section h3 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7a9ec2;
+      margin: 10px 0 6px;
+    }
+    .section h3:first-of-type { margin-top: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      padding: 3px 0;
+      vertical-align: top;
+    }
+    td:first-child {
+      white-space: nowrap;
+      padding-right: 12px;
+      color: #8cc265;
+      font-weight: 500;
+      width: 45%;
+    }
+    td:last-child {
+      color: #aaa;
+    }
+    .new {
+      display: inline-block;
+      font-size: 0.6rem;
+      background: #2d4a2d;
+      color: #6fcf6f;
+      padding: 0 5px;
+      border-radius: 3px;
+      font-weight: 700;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .warn {
+      color: #e8a838;
+    }
+    .danger {
+      color: #e85858;
+    }
+    .note {
+      font-size: 0.78rem;
+      color: #666;
+      font-style: italic;
+      margin-top: 6px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #444;
+      font-size: 0.75rem;
+    }
+    footer a { color: #666; text-decoration: none; }
+    footer a:hover { color: #d4a574; }
+
+    @media print {
+      body { background: #fff; color: #222; font-size: 11px; }
+      .header { padding: 16px; }
+      .section { border-color: #ddd; }
+      .section h2 { color: #a0522d; }
+      td:first-child { color: #2d6a2d; }
+      .grid { padding: 8px; }
+    }
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; padding: 8px; }
+      .section { margin: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="../index.html">&larr; Home</a>
+  <div class="header">
+    <h1>Claude Code Cheat Sheet</h1>
+    <p>Ref: <a href="https://cc.storyfox.cz/" target="_blank">cc.storyfox.cz</a> &middot; <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank">Official Docs</a></p>
+  </div>
+
+  <div class="grid">
+
+    <!-- Keyboard Shortcuts -->
+    <div class="section">
+      <h2>Keyboard Shortcuts</h2>
+      <h3>General Controls</h3>
+      <table>
+        <tr><td>Ctrl C</td><td>Cancel input / generation</td></tr>
+        <tr><td>Ctrl D</td><td>Exit session</td></tr>
+        <tr><td>Ctrl L</td><td>Clear screen</td></tr>
+        <tr><td>Ctrl O</td><td>Toggle verbose output</td></tr>
+        <tr><td>Ctrl R</td><td>Reverse search history</td></tr>
+        <tr><td>Ctrl G</td><td>Open prompt in editor</td></tr>
+        <tr><td>Ctrl X, Ctrl E</td><td>Open in editor (alias) <span class="new">NEW</span></td></tr>
+        <tr><td>Ctrl B</td><td>Background running task</td></tr>
+        <tr><td>Ctrl T</td><td>Toggle task list</td></tr>
+        <tr><td>Ctrl V</td><td>Paste image</td></tr>
+        <tr><td>Ctrl X, Ctrl K</td><td>Kill background agents <span class="new">NEW</span></td></tr>
+        <tr><td>Esc Esc</td><td>Rewind / undo</td></tr>
+      </table>
+      <h3>Mode Switching</h3>
+      <table>
+        <tr><td>Shift Tab</td><td>Cycle permission modes</td></tr>
+        <tr><td>Alt P</td><td>Switch model</td></tr>
+        <tr><td>Alt T</td><td>Toggle thinking</td></tr>
+      </table>
+      <h3>Input</h3>
+      <table>
+        <tr><td>\Enter</td><td>Newline (quick)</td></tr>
+        <tr><td>Ctrl J</td><td>Newline (control seq)</td></tr>
+      </table>
+      <h3>Prefixes</h3>
+      <table>
+        <tr><td>/</td><td>Slash command</td></tr>
+        <tr><td>!</td><td>Direct bash execution</td></tr>
+        <tr><td>@</td><td>File mention + autocomplete</td></tr>
+      </table>
+    </div>
+
+    <!-- Session Picker -->
+    <div class="section">
+      <h2>Session Picker</h2>
+      <table>
+        <tr><td>&uarr; &darr;</td><td>Navigate</td></tr>
+        <tr><td>&larr; &rarr;</td><td>Expand / collapse</td></tr>
+        <tr><td>P</td><td>Preview</td></tr>
+        <tr><td>R</td><td>Rename</td></tr>
+        <tr><td>/</td><td>Search</td></tr>
+        <tr><td>A</td><td>All projects</td></tr>
+        <tr><td>B</td><td>Current branch</td></tr>
+      </table>
+    </div>
+
+    <!-- Slash Commands -->
+    <div class="section">
+      <h2>Slash Commands</h2>
+      <h3>Session</h3>
+      <table>
+        <tr><td>/clear</td><td>Clear conversation</td></tr>
+        <tr><td>/compact [focus]</td><td>Compact context</td></tr>
+        <tr><td>/resume</td><td>Resume / switch session</td></tr>
+        <tr><td>/rename [name]</td><td>Name current session</td></tr>
+        <tr><td>/branch [name]</td><td>Branch conversation</td></tr>
+        <tr><td>/cost</td><td>Token usage stats</td></tr>
+        <tr><td>/context</td><td>Visualize context (grid)</td></tr>
+        <tr><td>/diff</td><td>Interactive diff viewer</td></tr>
+        <tr><td>/copy [N]</td><td>Copy last (or Nth) response</td></tr>
+        <tr><td>/rewind</td><td>Rewind conv / checkpoint</td></tr>
+        <tr><td>/export</td><td>Export conversation</td></tr>
+      </table>
+      <h3>Config</h3>
+      <table>
+        <tr><td>/config</td><td>Open settings</td></tr>
+        <tr><td>/model [model]</td><td>Switch model</td></tr>
+        <tr><td>/fast [on|off]</td><td>Toggle fast mode</td></tr>
+        <tr><td>/vim</td><td>Toggle vim mode</td></tr>
+        <tr><td>/theme</td><td>Change color theme</td></tr>
+        <tr><td>/permissions</td><td>View/update permissions</td></tr>
+        <tr><td>/effort [level]</td><td>Set effort (low/med/high/max/auto) <span class="new">NEW</span></td></tr>
+        <tr><td>/color [color]</td><td>Set prompt-bar color</td></tr>
+        <tr><td>/keybindings</td><td>Customize keyboard shortcuts</td></tr>
+        <tr><td>/terminal-setup</td><td>Configure terminal keybindings</td></tr>
+      </table>
+      <h3>Tools</h3>
+      <table>
+        <tr><td>/init</td><td>Create CLAUDE.md</td></tr>
+        <tr><td>/memory</td><td>Edit CLAUDE.md files</td></tr>
+        <tr><td>/mcp</td><td>Manage MCP servers</td></tr>
+        <tr><td>/hooks</td><td>Manage hooks</td></tr>
+        <tr><td>/skills</td><td>List available skills</td></tr>
+        <tr><td>/agents</td><td>Manage agents</td></tr>
+        <tr><td>/chrome</td><td>Chrome integration</td></tr>
+        <tr><td>/reload-plugins</td><td>Hot-reload plugins</td></tr>
+        <tr><td>/add-dir &lt;path&gt;</td><td>Add working directory</td></tr>
+      </table>
+      <h3>Special</h3>
+      <table>
+        <tr><td>/btw &lt;question&gt;</td><td>Side question (no context)</td></tr>
+        <tr><td>/plan [desc]</td><td>Plan mode (+ auto-start)</td></tr>
+        <tr><td>/loop [interval]</td><td>Schedule recurring task</td></tr>
+        <tr><td>/voice</td><td>Push-to-talk (20 langs)</td></tr>
+        <tr><td>/doctor</td><td>Diagnose installation</td></tr>
+        <tr><td>/stats</td><td>Usage streaks & prefs</td></tr>
+        <tr><td>/insights</td><td>Analyze sessions report</td></tr>
+        <tr><td>/desktop</td><td>Continue in Desktop app</td></tr>
+        <tr><td>/remote-control</td><td>Bridge to claude.ai/code <span class="new">NEW</span></td></tr>
+        <tr><td>/usage</td><td>Plan limits & rate status</td></tr>
+        <tr><td>/schedule</td><td>Cloud scheduled tasks</td></tr>
+        <tr><td>/security-review</td><td>Security analysis of changes</td></tr>
+        <tr><td>/stickers</td><td>Order stickers!</td></tr>
+      </table>
+    </div>
+
+    <!-- MCP Servers -->
+    <div class="section">
+      <h2>MCP Servers</h2>
+      <h3>Add Servers</h3>
+      <table>
+        <tr><td>--transport stdio</td><td>Local process</td></tr>
+        <tr><td>--transport sse</td><td>Remote SSE</td></tr>
+        <tr><td>--transport http</td><td>Remote HTTP (recommended)</td></tr>
+      </table>
+      <h3>Scopes</h3>
+      <table>
+        <tr><td>settings.local.json</td><td>Local (you only)</td></tr>
+        <tr><td>.mcp.json</td><td>Project (shared/VCS)</td></tr>
+        <tr><td>~/.claude.json</td><td>User (global)</td></tr>
+      </table>
+      <h3>Manage</h3>
+      <table>
+        <tr><td>/mcp</td><td>Interactive UI</td></tr>
+        <tr><td>claude mcp list</td><td>List all servers</td></tr>
+        <tr><td>claude mcp serve</td><td>CC as MCP server</td></tr>
+      </table>
+      <p class="note">Elicitation Servers: request input mid-task <span class="new">NEW</span></p>
+    </div>
+
+    <!-- Memory & Files -->
+    <div class="section">
+      <h2>Memory & File Structure</h2>
+      <h3>CLAUDE.md Locations</h3>
+      <table>
+        <tr><td>./CLAUDE.md</td><td>Project (team-shared)</td></tr>
+        <tr><td>~/.claude/CLAUDE.md</td><td>Personal (all projects)</td></tr>
+        <tr><td>/etc/claude-code/</td><td>Managed (org-wide)</td></tr>
+      </table>
+      <h3>Rules & Import</h3>
+      <table>
+        <tr><td>.claude/rules/*.md</td><td>Project rules</td></tr>
+        <tr><td>~/.claude/rules/*.md</td><td>User rules</td></tr>
+        <tr><td>@path/to/file</td><td>Import in CLAUDE.md</td></tr>
+        <tr><td>paths: frontmatter</td><td>Path-specific rules</td></tr>
+      </table>
+      <h3>Auto Memory</h3>
+      <table>
+        <tr><td colspan="2">~/.claude/projects/&lt;proj&gt;/memory/</td></tr>
+        <tr><td colspan="2" style="color:#888">MEMORY.md + topic files, auto-loaded</td></tr>
+      </table>
+    </div>
+
+    <!-- Workflows & Tips -->
+    <div class="section">
+      <h2>Workflows & Tips</h2>
+      <h3>Plan Mode</h3>
+      <table>
+        <tr><td>Shift Tab</td><td>Normal &rarr; Auto &rarr; Plan</td></tr>
+        <tr><td>--permission-mode plan</td><td>Start in plan mode</td></tr>
+      </table>
+      <h3>Thinking & Effort</h3>
+      <table>
+        <tr><td>Alt T</td><td>Toggle thinking on/off</td></tr>
+        <tr><td>"ultrathink"</td><td>Max effort for current turn</td></tr>
+        <tr><td>/effort</td><td>low &middot; med &middot; high <span class="new">NEW</span></td></tr>
+      </table>
+      <h3>Git Worktrees</h3>
+      <table>
+        <tr><td>--worktree name</td><td>Isolated branch per feature</td></tr>
+        <tr><td>isolation: worktree</td><td>Agent in own worktree</td></tr>
+        <tr><td>sparsePaths</td><td>Checkout only needed dirs <span class="new">NEW</span></td></tr>
+        <tr><td>/batch</td><td>Auto-creates worktrees</td></tr>
+      </table>
+      <h3>Voice Mode</h3>
+      <table>
+        <tr><td>/voice</td><td>Enable push-to-talk</td></tr>
+        <tr><td>Space (hold)</td><td>Record, release to send</td></tr>
+        <tr><td colspan="2" style="color:#888">20 languages: EN, ES, FR, DE, KO, JP...</td></tr>
+      </table>
+      <h3>Context Management</h3>
+      <table>
+        <tr><td>/context</td><td>Usage + optimization tips</td></tr>
+        <tr><td>/compact [focus]</td><td>Compress with focus</td></tr>
+        <tr><td>Auto-compact</td><td>~95% capacity trigger</td></tr>
+        <tr><td>CLAUDE.md</td><td>Survives compaction!</td></tr>
+      </table>
+    </div>
+
+    <!-- SDK & Headless -->
+    <div class="section">
+      <h2>SDK & Headless Mode</h2>
+      <h3>Non-interactive</h3>
+      <table>
+        <tr><td>claude -p "query"</td><td>Headless execution</td></tr>
+        <tr><td>--output-format json</td><td>Structured output</td></tr>
+        <tr><td>--max-budget-usd 5</td><td>Cost cap</td></tr>
+        <tr><td>cat file | claude -p</td><td>Pipe input</td></tr>
+        <tr><td>--bare</td><td>Minimal headless (no hooks/LSP) <span class="new">NEW</span></td></tr>
+      </table>
+      <h3>Session Shortcuts</h3>
+      <table>
+        <tr><td>claude -c</td><td>Continue last conversation</td></tr>
+        <tr><td>claude -r "name"</td><td>Resume by name</td></tr>
+        <tr><td>/btw question</td><td>Side Q, no context cost</td></tr>
+      </table>
+      <h3>Scheduling & Remote</h3>
+      <table>
+        <tr><td>/loop 5m msg</td><td>Recurring task</td></tr>
+        <tr><td>/rc</td><td>Remote control</td></tr>
+        <tr><td>--remote</td><td>Web session on claude.ai</td></tr>
+        <tr><td>--channels</td><td>MCP push / Discord / Telegram <span class="new">NEW</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Skills & Agents -->
+    <div class="section">
+      <h2>Skills & Agents</h2>
+      <h3>Built-in Skills</h3>
+      <table>
+        <tr><td>/simplify</td><td>Code review (3 parallel agents)</td></tr>
+        <tr><td>/batch</td><td>Large parallel changes (5-30 worktrees)</td></tr>
+        <tr><td>/debug [desc]</td><td>Troubleshoot from debug log</td></tr>
+        <tr><td>/loop [interval]</td><td>Recurring scheduled task</td></tr>
+        <tr><td>/claude-api</td><td>Load API + SDK reference</td></tr>
+      </table>
+      <h3>Custom Skills Location</h3>
+      <table>
+        <tr><td>.claude/skills/&lt;name&gt;/</td><td>Project skills</td></tr>
+        <tr><td>~/.claude/skills/&lt;name&gt;/</td><td>Personal skills</td></tr>
+      </table>
+      <h3>Skill Frontmatter</h3>
+      <table>
+        <tr><td>description</td><td>Auto-invocation trigger</td></tr>
+        <tr><td>allowed-tools</td><td>Skip permission prompts</td></tr>
+        <tr><td>model</td><td>Override model for skill</td></tr>
+        <tr><td>effort</td><td>Override effort level <span class="new">NEW</span></td></tr>
+        <tr><td>context: fork</td><td>Run in subagent</td></tr>
+        <tr><td>$ARGUMENTS</td><td>User input placeholder</td></tr>
+        <tr><td>${CLAUDE_SKILL_DIR}</td><td>Skill's own directory</td></tr>
+        <tr><td>!`cmd`</td><td>Dynamic context injection</td></tr>
+      </table>
+      <h3>Built-in Agents</h3>
+      <table>
+        <tr><td>Explore</td><td>Fast read-only (Haiku)</td></tr>
+        <tr><td>Plan</td><td>Research for plan mode</td></tr>
+        <tr><td>General</td><td>Full tools, complex tasks</td></tr>
+        <tr><td>Bash</td><td>Terminal, separate context</td></tr>
+      </table>
+      <h3>Agent Frontmatter</h3>
+      <table>
+        <tr><td>permissionMode</td><td>default / acceptEdits / plan / dontAsk / bypass</td></tr>
+        <tr><td>isolation: worktree</td><td>Run in git worktree</td></tr>
+        <tr><td>memory: user|project</td><td>Persistent memory</td></tr>
+        <tr><td>background: true</td><td>Background task</td></tr>
+        <tr><td>maxTurns</td><td>Limit agentic turns</td></tr>
+        <tr><td>SendMessage</td><td>Resume agents <span class="new">NEW</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Config & Env -->
+    <div class="section">
+      <h2>Config & Environment</h2>
+      <h3>Config Files</h3>
+      <table>
+        <tr><td>~/.claude/settings.json</td><td>User settings</td></tr>
+        <tr><td>.claude/settings.json</td><td>Project (shared)</td></tr>
+        <tr><td>.claude/settings.local.json</td><td>Local only</td></tr>
+        <tr><td>~/.claude.json</td><td>OAuth, MCP, state</td></tr>
+        <tr><td>.mcp.json</td><td>Project MCP servers</td></tr>
+      </table>
+      <h3>Key Settings</h3>
+      <table>
+        <tr><td>modelOverrides</td><td>Map model picker &rarr; custom IDs</td></tr>
+        <tr><td>autoMemoryDirectory</td><td>Custom memory dir</td></tr>
+        <tr><td>worktree.sparsePaths</td><td>Sparse checkout dirs <span class="new">NEW</span></td></tr>
+      </table>
+      <h3>Environment Variables</h3>
+      <table>
+        <tr><td>ANTHROPIC_API_KEY</td><td>API key</td></tr>
+        <tr><td>ANTHROPIC_MODEL</td><td>Default model</td></tr>
+        <tr><td>CLAUDE_CODE_EFFORT_LEVEL</td><td>low / med / high</td></tr>
+        <tr><td>MAX_THINKING_TOKENS</td><td>0 = off</td></tr>
+        <tr><td>CLAUDE_CODE_PLUGIN_SEED_DIR</td><td>Multiple plugin seed dirs</td></tr>
+        <tr><td>CLAUDECODE</td><td>Detect CC shell (=1)</td></tr>
+        <tr><td>IS_DEMO</td><td>Demo mode (hide email/org)</td></tr>
+      </table>
+    </div>
+
+    <!-- CLI & Flags -->
+    <div class="section">
+      <h2>CLI & Flags</h2>
+      <h3>Core Commands</h3>
+      <table>
+        <tr><td>claude</td><td>Interactive mode</td></tr>
+        <tr><td>claude "query"</td><td>With initial prompt</td></tr>
+        <tr><td>claude -p "query"</td><td>Headless (non-interactive)</td></tr>
+        <tr><td>claude -c</td><td>Continue last conversation</td></tr>
+        <tr><td>claude -r "name"</td><td>Resume by name</td></tr>
+        <tr><td>claude update</td><td>Update CLI</td></tr>
+      </table>
+      <h3>Key Flags</h3>
+      <table>
+        <tr><td>--model</td><td>Set model</td></tr>
+        <tr><td>-w</td><td>Git worktree</td></tr>
+        <tr><td>-n / --name</td><td>Session name</td></tr>
+        <tr><td>--add-dir</td><td>Add directory</td></tr>
+        <tr><td>--agent</td><td>Use agent</td></tr>
+        <tr><td>--allowedTools</td><td>Pre-approve tools</td></tr>
+        <tr><td>--output-format</td><td>json / stream</td></tr>
+        <tr><td>--json-schema</td><td>Structured output</td></tr>
+        <tr><td>--max-turns</td><td>Limit turns</td></tr>
+        <tr><td>--max-budget-usd</td><td>Cost cap</td></tr>
+        <tr><td>--verbose</td><td>Verbose output</td></tr>
+        <tr><td>--bare</td><td>Minimal headless <span class="new">NEW</span></td></tr>
+        <tr><td>--channels</td><td>Permission relay / MCP push <span class="new">NEW</span></td></tr>
+        <tr><td>--remote</td><td>Web session</td></tr>
+        <tr><td>--effort</td><td>low / med / high / max</td></tr>
+        <tr><td>--permission-mode</td><td>plan / default / ...</td></tr>
+        <tr><td class="danger">--dangerously-skip-permissions</td><td>Skip all prompts</td></tr>
+        <tr><td>--chrome</td><td>Chrome integration</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="../index.html">&larr; Home</a> &middot;
+    Source: <a href="https://cc.storyfox.cz/" target="_blank">cc.storyfox.cz</a> &middot;
+    <a href="https://github.com/HSRyuuu" target="_blank">HSRyuuu</a>
+  </footer>
+</body>
+</html>
