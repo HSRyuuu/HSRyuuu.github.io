@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════
-   Claude Code Cheat Sheet — Styles
+   Linux Commands Cheat Sheet — Styles
    ══════════════════════════════════════ */
 
 :root {
@@ -11,9 +11,9 @@
   --bg-tab-active: #E8E0D4;
   --border: #E2D8CC;
   --border-hover: #CFC2B2;
-  --accent: #B8614E;
-  --accent-dim: #9B5040;
-  --accent-glow: rgba(184, 97, 78, 0.08);
+  --accent: #2D6356;
+  --accent-dim: #24544A;
+  --accent-glow: rgba(61, 122, 107, 0.08);
   --accent-cmd: #2D6356;
   --accent-green: #5B8B6A;
   --accent-purple: #9B89A8;
@@ -81,8 +81,8 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(184,97,78,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(45,99,86,0.04) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(45,99,86,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(184,97,78,0.04) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -441,7 +441,7 @@ kbd.cmd {
 .note-card {
   grid-column: 1 / -1;
   background: var(--accent-glow);
-  border-color: rgba(184, 97, 78, 0.15);
+  border-color: rgba(61, 122, 107, 0.15);
   padding: 12px 18px;
 }
 .note-card .card-desc {
@@ -550,7 +550,7 @@ footer .sep { margin: 0 8px; opacity: 0.3; }
   .card { background: #FAFAFA; border-color: #E2D8CC; break-inside: avoid; }
   kbd { background: #F3ECE2; border-color: #DDD3C5; color: #4A3F34; }
   .section-title { color: #2D6356; }
-  .header h1 span { color: #B8614E; }
+  .header h1 span { color: #2D6356; }
 }
 
 /* ── No results ── */
