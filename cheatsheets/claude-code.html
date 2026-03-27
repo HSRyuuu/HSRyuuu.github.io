@@ -37,6 +37,11 @@
           >공식 문서</a
         >
       </div>
+      <!-- OS Toggle -->
+      <div class="os-toggle" role="radiogroup" aria-label="운영체제 선택">
+        <button class="os-btn active" data-os="mac" role="radio" aria-checked="true">Mac</button>
+        <button class="os-btn" data-os="win" role="radio" aria-checked="false">Windows / Linux</button>
+      </div>
     </header>
 
     <!-- Search -->
@@ -58,21 +63,21 @@
         <div class="tabs" id="tabs" role="tablist">
           <button
             class="tab active"
-            data-tab="shortcuts"
-            role="tab"
-            aria-selected="true"
-            aria-controls="panel-shortcuts"
-          >
-            <span class="tab-icon" aria-hidden="true">⌨</span>단축키
-          </button>
-          <button
-            class="tab"
             data-tab="commands"
             role="tab"
-            aria-selected="false"
+            aria-selected="true"
             aria-controls="panel-commands"
           >
             <span class="tab-icon" aria-hidden="true">⁄</span>슬래시 명령어
+          </button>
+          <button
+            class="tab"
+            data-tab="shortcuts"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-shortcuts"
+          >
+            <span class="tab-icon" aria-hidden="true">⌨</span>단축키
           </button>
           <button
             class="tab"
@@ -146,7 +151,7 @@
       <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
 
       <!-- ═══════ 단축키 ═══════ -->
-      <div class="tab-panel active" id="panel-shortcuts" role="tabpanel">
+      <div class="tab-panel" id="panel-shortcuts" role="tabpanel">
         <div class="section-group">
           <div class="section-title">일반 제어</div>
           <div class="cards">
@@ -253,6 +258,26 @@
               </div>
               <div class="card-body">
                 <span class="card-desc">프롬프트 편집기 열기</span>
+              </div>
+            </div>
+            <div class="card" data-search="ctrl x ctrl e 편집기 열기 editor open alias">
+              <div class="card-header">
+                <div class="card-keys">
+                  <div class="key-combo">
+                    <kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>X</kbd>
+                  </div>
+                  <div class="key-combo">
+                    <kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>E</kbd>
+                  </div>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  Ctrl+G와 동일하게 외부 편집기에서 프롬프트를 작성합니다.
+                  readline 스타일의 대체 단축키입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">편집기 열기 (별칭) <span class="card-badge">NEW</span></span>
               </div>
             </div>
             <div class="card" data-search="ctrl b 백그라운드 background 실행">
@@ -381,7 +406,7 @@
               <div class="card-header">
                 <div class="card-keys">
                   <div class="key-combo">
-                    <kbd>Alt</kbd><span class="key-plus">+</span><kbd>P</kbd>
+                    <kbd class="os-key" data-mac="⌥" data-win="Alt">Alt</kbd><span class="key-plus">+</span><kbd>P</kbd>
                   </div>
                 </div>
                 <button class="help-btn" aria-label="상세 설명 보기">?</button>
@@ -398,7 +423,7 @@
               <div class="card-header">
                 <div class="card-keys">
                   <div class="key-combo">
-                    <kbd>Alt</kbd><span class="key-plus">+</span><kbd>T</kbd>
+                    <kbd class="os-key" data-mac="⌥" data-win="Alt">Alt</kbd><span class="key-plus">+</span><kbd>T</kbd>
                   </div>
                 </div>
                 <button class="help-btn" aria-label="상세 설명 보기">?</button>
@@ -409,6 +434,23 @@
               </div>
               <div class="card-body">
                 <span class="card-desc">사고 모드 전환</span>
+              </div>
+            </div>
+            <div class="card" data-search="alt o 빠른 모드 fast mode toggle">
+              <div class="card-header">
+                <div class="card-keys">
+                  <div class="key-combo">
+                    <kbd class="os-key" data-mac="⌥" data-win="Alt">Alt</kbd><span class="key-plus">+</span><kbd>O</kbd>
+                  </div>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  빠른 모드를 켜거나 끕니다. 동일 모델에서 더 빠른 출력 속도를
+                  제공합니다. /fast 명령어와 동일한 기능입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">빠른 모드 전환 <span class="card-badge">NEW</span></span>
               </div>
             </div>
           </div>
@@ -581,7 +623,7 @@
       </div>
 
       <!-- ═══════ 슬래시 명령어 ═══════ -->
-      <div class="tab-panel" id="panel-commands" role="tabpanel">
+      <div class="tab-panel active" id="panel-commands" role="tabpanel">
         <div class="section-group">
           <div class="section-title">세션 관련</div>
           <div class="cards">
@@ -1677,7 +1719,7 @@
               <div class="card-header">
                 <div class="card-keys">
                   <div class="key-combo">
-                    <kbd>Alt</kbd><span class="key-plus">+</span><kbd>T</kbd>
+                    <kbd class="os-key" data-mac="⌥" data-win="Alt">Alt</kbd><span class="key-plus">+</span><kbd>T</kbd>
                   </div>
                 </div>
                 <button class="help-btn" aria-label="상세 설명 보기">?</button>
@@ -3419,6 +3461,35 @@
           searchInput.focus();
         }
       });
+
+      // ── OS Toggle ──
+      const osButtons = document.querySelectorAll(".os-btn");
+      const osKeys = document.querySelectorAll(".os-key");
+
+      function setOS(os) {
+        osButtons.forEach((btn) => {
+          const isActive = btn.dataset.os === os;
+          btn.classList.toggle("active", isActive);
+          btn.setAttribute("aria-checked", isActive);
+        });
+        osKeys.forEach((kbd) => {
+          kbd.textContent = os === "mac" ? kbd.dataset.mac : kbd.dataset.win;
+        });
+        localStorage.setItem("cc-os", os);
+      }
+
+      osButtons.forEach((btn) => {
+        btn.addEventListener("click", () => setOS(btn.dataset.os));
+      });
+
+      // Auto-detect OS on load
+      const savedOS = localStorage.getItem("cc-os");
+      if (savedOS) {
+        setOS(savedOS);
+      } else {
+        const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+        setOS(isMac ? "mac" : "win");
+      }
     </script>
     <script src="../icons.js"></script>
     <script src="../sidebar.js"></script>
