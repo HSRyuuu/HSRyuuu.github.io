@@ -1,1373 +1,2608 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux Commands Cheat Sheet</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="linux.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linux Commands Cheat Sheet</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Pretendard:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="linux.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
 
-  <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
-
-  <!-- Header -->
-  <header class="header">
-    <a class="back-link" href="../index.html" aria-label="홈으로 돌아가기">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Home
-    </a>
-    <h1><span>$</span> Linux Commands Cheat Sheet</h1>
-    <div class="header-meta">
-      <span>2년차 풀스택 개발자를 위한 실무 필수 명령어</span>
-    </div>
-  </header>
-
-  <!-- Search -->
-  <div class="search-bar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <label for="searchInput" class="sr-only">치트시트 검색</label>
-    <input type="search" id="searchInput" placeholder="검색... (예: grep, 포트, 권한)" autocomplete="off">
-    <span class="search-count" id="searchCount" aria-live="polite"></span>
-  </div>
-
-  <!-- Tabs -->
-  <nav class="tabs-wrapper" aria-label="카테고리 탭">
-    <div class="tabs-scroll">
-      <div class="tabs" id="tabs" role="tablist">
-        <button class="tab active" data-tab="files" role="tab" aria-selected="true" aria-controls="panel-files"><span class="tab-icon" aria-hidden="true">&#x1F4C1;</span>파일 &amp; 디렉토리</button>
-        <button class="tab" data-tab="content" role="tab" aria-selected="false" aria-controls="panel-content"><span class="tab-icon" aria-hidden="true">&#x1F4C4;</span>파일 내용</button>
-        <button class="tab" data-tab="permission" role="tab" aria-selected="false" aria-controls="panel-permission"><span class="tab-icon" aria-hidden="true">&#x1F512;</span>권한 &amp; 소유자</button>
-        <button class="tab" data-tab="process" role="tab" aria-selected="false" aria-controls="panel-process"><span class="tab-icon" aria-hidden="true">&#x2699;</span>프로세스 관리</button>
-        <button class="tab" data-tab="network" role="tab" aria-selected="false" aria-controls="panel-network"><span class="tab-icon" aria-hidden="true">&#x1F310;</span>네트워크</button>
-        <button class="tab" data-tab="system" role="tab" aria-selected="false" aria-controls="panel-system"><span class="tab-icon" aria-hidden="true">&#x1F4BB;</span>시스템 &amp; 리소스</button>
-        <button class="tab" data-tab="archive" role="tab" aria-selected="false" aria-controls="panel-archive"><span class="tab-icon" aria-hidden="true">&#x1F4E6;</span>압축 &amp; 패키지</button>
-        <button class="tab" data-tab="vim" role="tab" aria-selected="false" aria-controls="panel-vim"><span class="tab-icon" aria-hidden="true">&#x270F;</span>Vi / Vim</button>
-        <button class="tab" data-tab="tips" role="tab" aria-selected="false" aria-controls="panel-tips"><span class="tab-icon" aria-hidden="true">&#x1F4A1;</span>조합 &amp; 팁</button>
+    <!-- Header -->
+    <header class="header">
+      <a class="back-link" href="../index.html" aria-label="홈으로 돌아가기">
+        <span data-icon="back-arrow"></span>
+        Home
+      </a>
+      <h1><span>$</span> Linux Commands Cheat Sheet</h1>
+      <div class="header-meta">
+        <span>Linux 실무 필수 명령어</span>
       </div>
-    </div>
-  </nav>
+    </header>
 
-  <!-- Content -->
-  <main class="content-area" id="main-content">
-    <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
-
-    <!-- ═══════ 파일 & 디렉토리 ═══════ -->
-    <div class="tab-panel active" id="panel-files" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">기본 이동 &amp; 조회</div>
-        <div class="cards">
-          <div class="card" data-search="pwd 현재 디렉토리 경로 print working directory">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">pwd</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 위치한 디렉토리의 전체 경로를 출력합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">현재 작업 디렉토리 출력</span></div>
-          </div>
-          <div class="card" data-search="cd 이동 디렉토리 change directory 홈 상위">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">cd &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">cd ~ (홈), cd .. (상위), cd - (이전 디렉토리)로 빠르게 이동할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디렉토리 이동</span></div>
-          </div>
-          <div class="card" data-search="ls 목록 조회 list files directories">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ls</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 디렉토리의 파일과 폴더를 나열합니다. 기본적으로 숨김 파일은 표시하지 않습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일/디렉토리 목록 조회</span></div>
-          </div>
-          <div class="card" data-search="ls -al 상세 목록 숨김 파일 hidden all long">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ls -al</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-a는 숨김 파일(.으로 시작), -l은 권한/소유자/크기/날짜 등 상세 정보를 표시합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">상세 목록 (숨김 파일 포함)</span></div>
-          </div>
-          <div class="card" data-search="ls -lh 사람 읽기 크기 human readable size">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ls -lh</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-h 옵션으로 파일 크기를 KB, MB, GB 단위로 표시합니다. 예: 4.0K, 1.2M</div>
-            </div>
-            <div class="card-body"><span class="card-desc">사람이 읽기 쉬운 크기 표시</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">파일 / 디렉토리 조작</div>
-        <div class="cards">
-          <div class="card" data-search="mkdir 디렉토리 생성 make directory 폴더 만들기">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">mkdir &lt;이름&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">mkdir -p a/b/c 로 중간 디렉토리를 한 번에 생성할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디렉토리 생성</span></div>
-          </div>
-          <div class="card" data-search="mkdir -p 중간 경로 포함 생성 parents recursive">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">mkdir -p &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">부모 디렉토리가 없어도 자동으로 생성합니다. 스크립트에서 자주 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">중간 경로 포함 생성</span></div>
-          </div>
-          <div class="card" data-search="touch 빈 파일 생성 수정시간 갱신 create empty file">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">touch &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">파일이 없으면 새로 만들고, 있으면 수정 시간만 업데이트합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">빈 파일 생성 / 수정시간 갱신</span></div>
-          </div>
-          <div class="card" data-search="cp 복사 파일 copy file backup">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">cp &lt;원본&gt; &lt;대상&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">cp -r 옵션으로 디렉토리를 재귀적으로 복사합니다. 예: cp file.txt file_backup.txt</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 복사</span></div>
-          </div>
-          <div class="card" data-search="cp -r 디렉토리 재귀 복사 recursive copy directory">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">cp -r &lt;원본&gt; &lt;대상&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">디렉토리와 하위 내용을 모두 복사합니다. 백업 시 자주 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디렉토리 재귀 복사</span></div>
-          </div>
-          <div class="card" data-search="mv 이동 이름 변경 move rename file directory">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">mv &lt;원본&gt; &lt;대상&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">mv old.txt new.txt (이름변경), mv file.txt /tmp/ (이동). 같은 명령어로 두 가지 용도로 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일/디렉토리 이동 또는 이름 변경</span></div>
-          </div>
-          <div class="card" data-search="rm 삭제 파일 remove delete file">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">rm &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">휴지통 없이 바로 삭제됩니다! rm -i 옵션으로 삭제 전 확인을 받을 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 삭제</span></div>
-          </div>
-          <div class="card" data-search="rm -rf 강제 삭제 디렉토리 force recursive dangerous">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">rm -rf &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-r(재귀) -f(강제) 삭제. 매우 위험한 명령어입니다. 실행 전 경로를 반드시 확인하세요! 특히 rm -rf / 는 절대 실행하지 마세요.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디렉토리 강제 삭제 <span class="card-badge danger">주의</span></span></div>
-          </div>
-          <div class="card" data-search="ln -s 심볼릭 링크 symbolic link symlink 바로가기">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ln -s &lt;원본&gt; &lt;링크&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">바로가기와 비슷합니다. 원본 파일을 가리키는 링크를 만듭니다. 예: ln -s /usr/local/bin/node node</div>
-            </div>
-            <div class="card-body"><span class="card-desc">심볼릭 링크 생성</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">검색</div>
-        <div class="cards">
-          <div class="card" data-search="find 파일 찾기 검색 search name pattern">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">find &lt;경로&gt; -name "&lt;패턴&gt;"</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">find . -name "*.log" (현재 디렉토리에서 .log 파일 찾기). -type f(파일만), -type d(디렉토리만) 옵션도 유용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 찾기</span></div>
-          </div>
-          <div class="card" data-search="find mtime 최근 수정 파일 modified time recent days">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">find &lt;경로&gt; -mtime -&lt;일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">find . -mtime -7 (7일 이내 수정된 파일). -mtime +30 (30일 이전 파일) 등으로 오래된 파일 정리에 활용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">최근 수정된 파일 찾기</span></div>
-          </div>
-          <div class="card" data-search="which 실행 파일 경로 확인 binary path command location">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">which &lt;명령어&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">which node, which python 등으로 어떤 버전의 바이너리가 실행되는지 확인할 때 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">실행 파일 경로 확인</span></div>
-          </div>
-        </div>
-      </div>
+    <!-- Search -->
+    <div class="search-bar">
+      <span data-icon="search"></span>
+      <label for="searchInput" class="sr-only">치트시트 검색</label>
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="검색... (예: grep, 포트, 권한)"
+        autocomplete="off"
+      />
+      <span class="search-count" id="searchCount" aria-live="polite"></span>
     </div>
 
-    <!-- ═══════ 파일 내용 ═══════ -->
-    <div class="tab-panel" id="panel-content" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">파일 보기</div>
-        <div class="cards">
-          <div class="card" data-search="cat 파일 전체 내용 출력 print file contents">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">cat &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">짧은 파일을 빠르게 확인할 때 사용합니다. 긴 파일은 less를 사용하세요.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 전체 내용 출력</span></div>
-          </div>
-          <div class="card" data-search="less 페이지 단위 파일 보기 pager scroll">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">less &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">방향키/Page Up·Down으로 이동, /검색어로 검색, q로 종료. 로그 파일 볼 때 필수입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">페이지 단위로 파일 보기</span></div>
-          </div>
-          <div class="card" data-search="head 처음 줄 출력 first lines top">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">head -n &lt;줄수&gt; &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">head -n 20 app.log (처음 20줄). -n 생략 시 기본 10줄을 표시합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 처음 N줄 출력</span></div>
-          </div>
-          <div class="card" data-search="tail 마지막 줄 출력 last lines bottom">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">tail -n &lt;줄수&gt; &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">tail -n 50 app.log (마지막 50줄). 로그 파일의 최근 내용 확인에 자주 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 마지막 N줄 출력</span></div>
-          </div>
-          <div class="card" data-search="tail -f 실시간 파일 추적 follow watch log realtime">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">tail -f &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">로그 파일을 실시간으로 모니터링합니다. Ctrl+C로 종료. 서버 로그 디버깅 시 필수입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">실시간 파일 추적</span></div>
-          </div>
-          <div class="card" data-search="wc -l 줄 수 카운트 word count lines">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">wc -l &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">wc -w (단어 수), wc -c (바이트 수). 파이프와 함께: cat file | wc -l</div>
-            </div>
-            <div class="card-body"><span class="card-desc">줄 수 카운트</span></div>
-          </div>
+    <!-- Tabs -->
+    <nav class="tabs-wrapper" aria-label="카테고리 탭">
+      <div class="tabs-scroll">
+        <div class="tabs" id="tabs" role="tablist">
+          <button
+            class="tab active"
+            data-tab="files"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-files"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x1F4C1;</span>파일 &amp;
+            디렉토리
+          </button>
+          <button
+            class="tab"
+            data-tab="content"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-content"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x1F4C4;</span>파일 내용
+          </button>
+          <button
+            class="tab"
+            data-tab="permission"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-permission"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x1F512;</span>권한 &amp;
+            소유자
+          </button>
+          <button
+            class="tab"
+            data-tab="process"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-process"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x2699;</span>프로세스
+            관리
+          </button>
+          <button
+            class="tab"
+            data-tab="network"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-network"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x1F310;</span>네트워크
+          </button>
+          <button
+            class="tab"
+            data-tab="system"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-system"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x1F4BB;</span>시스템
+            &amp; 리소스
+          </button>
+          <button
+            class="tab"
+            data-tab="archive"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-archive"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x1F4E6;</span>압축 &amp;
+            패키지
+          </button>
+          <button
+            class="tab"
+            data-tab="vim"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-vim"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x270F;</span>Vi / Vim
+          </button>
+          <button
+            class="tab"
+            data-tab="tips"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-tips"
+          >
+            <span class="tab-icon" aria-hidden="true">&#x1F4A1;</span>조합 &amp;
+            팁
+          </button>
         </div>
       </div>
+    </nav>
 
-      <div class="section-group">
-        <div class="section-title">텍스트 검색 &amp; 처리</div>
-        <div class="cards">
-          <div class="card" data-search="grep 텍스트 검색 문자열 찾기 search text pattern">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">grep "&lt;패턴&gt;" &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">grep -i (대소문자 무시), grep -r (재귀 검색), grep -n (줄 번호 표시). 예: grep -rn "TODO" src/</div>
-            </div>
-            <div class="card-body"><span class="card-desc">텍스트 검색</span></div>
-          </div>
-          <div class="card" data-search="grep -r 재귀 검색 디렉토리 recursive search project">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">grep -r "&lt;패턴&gt;" &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">프로젝트 전체에서 특정 문자열을 찾을 때 사용합니다. grep -rn "import express" . --include="*.js"</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디렉토리 재귀 검색</span></div>
-          </div>
-          <div class="card" data-search="sort 정렬 오름차순 내림차순 숫자 sort ascending descending">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">sort &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">sort -n (숫자 정렬), sort -r (역순), sort -u (중복 제거 후 정렬). 파이프와 함께 많이 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">정렬</span></div>
-          </div>
-          <div class="card" data-search="uniq 중복 제거 연속 duplicate remove unique">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">uniq</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">보통 sort와 함께 사용: sort file.txt | uniq -c (중복 횟수 표시). 로그 분석에 유용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">연속 중복 제거</span></div>
-          </div>
-          <div class="card" data-search="diff 두 파일 비교 차이점 compare difference">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">diff &lt;파일1&gt; &lt;파일2&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">두 파일의 차이점을 줄 단위로 보여줍니다. diff -u (unified 형식)로 보면 더 읽기 쉽습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">두 파일 비교</span></div>
-          </div>
-          <div class="card" data-search="awk 컬럼 추출 필드 column extract field print">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">awk '{print $N}'</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">공백으로 구분된 텍스트에서 N번째 컬럼을 추출합니다. 예: ps aux | awk '{print $2, $11}' (PID와 명령어)</div>
-            </div>
-            <div class="card-body"><span class="card-desc">컬럼 추출</span></div>
-          </div>
-          <div class="card" data-search="sed 텍스트 치환 찾기 바꾸기 replace substitute">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">sed 's/찾기/바꾸기/g'</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">sed -i 's/old/new/g' file.txt (파일 직접 수정). 스크립트에서 설정값 변경 시 유용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">텍스트 치환</span></div>
-          </div>
-          <div class="card" data-search="xargs 파이프 입력 인자 변환 pipe arguments convert">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">xargs</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">find . -name "*.tmp" | xargs rm (찾은 파일을 삭제). 다른 명령어의 출력을 인자로 전달할 때 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파이프 입력을 인자로 변환</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Content -->
+    <main class="content-area" id="main-content">
+      <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
 
-    <!-- ═══════ 권한 & 소유자 ═══════ -->
-    <div class="tab-panel" id="panel-permission" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">권한 관리</div>
-        <div class="cards">
-          <div class="card" data-search="chmod 권한 변경 permission change mode 755 644">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">chmod &lt;권한&gt; &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">chmod 755 script.sh (소유자:rwx, 그룹:r-x, 기타:r-x). chmod +x script.sh (실행 권한 추가). 숫자 표기: r=4, w=2, x=1</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 권한 변경</span></div>
-          </div>
-          <div class="card" data-search="chmod -R 디렉토리 하위 전체 권한 변경 recursive">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">chmod -R &lt;권한&gt; &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">chmod -R 644 logs/ (디렉토리 하위 모든 파일의 권한을 변경합니다)</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디렉토리 하위 전체 권한 변경</span></div>
-          </div>
-          <div class="card" data-search="chown 소유자 변경 owner group change ownership">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">chown &lt;유저&gt;:&lt;그룹&gt; &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">chown www-data:www-data /var/www (웹 서버 디렉토리 소유자 변경). -R 옵션으로 재귀 적용 가능합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">소유자 변경</span></div>
-          </div>
-          <div class="card" data-search="umask 기본 권한 마스크 default permission mask">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">umask</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">새로 생성되는 파일/디렉토리의 기본 권한을 결정합니다. umask 022가 일반적입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">기본 권한 마스크 확인/설정</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="cards">
-          <div class="card note-card" data-search="권한 숫자 읽기 rwx permission number">
-            <div class="card-body"><span class="card-desc">권한 숫자 읽기: r(읽기)=4, w(쓰기)=2, x(실행)=1 &#x2192; 합산. 예: 755 = rwxr-xr-x, 644 = rw-r--r--</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">파일 정보</div>
-        <div class="cards">
-          <div class="card" data-search="ls -la 권한 상세 확인 detail permission view">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ls -la</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">drwxr-xr-x 형태로 표시됩니다. d=디렉토리, r=읽기, w=쓰기, x=실행. 첫 번째 3자리=소유자, 두 번째=그룹, 세 번째=기타</div>
-            </div>
-            <div class="card-body"><span class="card-desc">권한 상세 확인</span></div>
-          </div>
-          <div class="card" data-search="stat 파일 상세 메타데이터 metadata inode">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">stat &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">파일 크기, 블록 수, inode, 접근/수정/변경 시간, 권한 등 모든 메타데이터를 표시합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 상세 메타데이터</span></div>
-          </div>
-          <div class="card" data-search="file 파일 타입 확인 type detect identify">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">file &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">확장자에 의존하지 않고 파일의 실제 타입을 판별합니다. 예: file image.png &#x2192; PNG image data</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 타입 확인</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════ 프로세스 관리 ═══════ -->
-    <div class="tab-panel" id="panel-process" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">프로세스 조회</div>
-        <div class="cards">
-          <div class="card" data-search="ps aux 전체 프로세스 목록 all processes list cpu memory">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ps aux</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">a(모든 사용자), u(상세 정보), x(터미널 없는 프로세스 포함). CPU, 메모리 사용량, PID 등을 확인할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">전체 프로세스 목록</span></div>
-          </div>
-          <div class="card" data-search="ps -ef 전체 프로세스 다른 형식 full format ppid parent">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ps -ef</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-e(모든 프로세스), -f(full format). PPID(부모 PID)를 확인할 수 있어 프로세스 관계를 파악하기 좋습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">전체 프로세스 (다른 형식)</span></div>
-          </div>
-          <div class="card" data-search="ps aux grep 특정 프로세스 검색 filter find specific">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ps aux | grep &lt;이름&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">ps aux | grep node (node 프로세스 찾기). grep -v grep을 추가하면 grep 자체를 제외할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">특정 프로세스 검색</span></div>
-          </div>
-          <div class="card" data-search="top 실시간 프로세스 모니터링 realtime monitor cpu">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">top</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">CPU/메모리 사용량 순으로 프로세스를 실시간 표시합니다. q로 종료. Shift+M(메모리 순), Shift+P(CPU 순) 정렬.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">실시간 프로세스 모니터링</span></div>
-          </div>
-          <div class="card" data-search="htop 향상된 프로세스 모니터링 enhanced better color tree">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">htop</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">top의 개선 버전으로 컬러 표시, 마우스 지원, 트리 뷰 등을 제공합니다. 설치 필요: apt install htop</div>
-            </div>
-            <div class="card-body"><span class="card-desc">향상된 프로세스 모니터링</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">프로세스 제어</div>
-        <div class="cards">
-          <div class="card" data-search="kill PID 프로세스 종료 terminate sigterm signal">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">kill &lt;PID&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">프로세스에 정상 종료 신호(SIGTERM)를 보냅니다. PID는 ps 명령어로 확인할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">프로세스 종료 (SIGTERM)</span></div>
-          </div>
-          <div class="card" data-search="kill -9 강제 종료 sigkill force kill process">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">kill -9 &lt;PID&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">정상 종료가 안 될 때 사용합니다. 프로세스가 정리 작업을 할 수 없으므로 최후의 수단으로 사용하세요.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">프로세스 강제 종료 (SIGKILL) <span class="card-badge danger">주의</span></span></div>
-          </div>
-          <div class="card" data-search="killall 이름 프로세스 종료 name kill all by name">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">killall &lt;이름&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">killall node (모든 node 프로세스 종료). 여러 프로세스를 한 번에 종료할 때 편리합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">이름으로 프로세스 종료</span></div>
-          </div>
-          <div class="card" data-search="nohup 백그라운드 실행 터미널 종료 유지 background detach">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">nohup &lt;명령어&gt; &amp;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">nohup node server.js &amp; &#x2192; 터미널을 닫아도 서버가 계속 실행됩니다. 출력은 nohup.out에 저장됩니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">백그라운드 실행 (터미널 종료 후 유지)</span></div>
-          </div>
-          <div class="card" data-search="jobs 백그라운드 작업 목록 background job list">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">jobs</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 셸에서 실행 중인 백그라운드 작업을 보여줍니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">백그라운드 작업 목록</span></div>
-          </div>
-          <div class="card" data-search="lsof -i 포트 사용 프로세스 확인 port process listen">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">lsof -i :&lt;포트&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">lsof -i :3000 (3000번 포트 사용 프로세스). 포트 충돌 시 어떤 프로세스가 점유하고 있는지 확인할 때 필수입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">특정 포트를 사용 중인 프로세스 확인</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════ 네트워크 ═══════ -->
-    <div class="tab-panel" id="panel-network" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">네트워크 조회</div>
-        <div class="cards">
-          <div class="card" data-search="ifconfig ip addr IP 주소 확인 address network interface">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ip addr</kbd> <kbd class="cmd wide">ifconfig</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">네트워크 인터페이스별 IP 주소, MAC 주소 등을 확인합니다. 최근 리눅스에서는 ip addr 사용을 권장합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">IP 주소 확인</span></div>
-          </div>
-          <div class="card" data-search="ping 네트워크 연결 확인 connectivity check host">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ping &lt;호스트&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">ping google.com (연결 상태 확인). -c 옵션으로 횟수 지정: ping -c 4 google.com</div>
-            </div>
-            <div class="card-body"><span class="card-desc">네트워크 연결 확인</span></div>
-          </div>
-          <div class="card" data-search="curl HTTP 요청 보내기 API 테스트 request post get">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">curl &lt;URL&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://localhost:3000/api. API 테스트 시 필수 도구입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">HTTP 요청 보내기</span></div>
-          </div>
-          <div class="card" data-search="curl -I HTTP 헤더 조회 header only status code">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">curl -I &lt;URL&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">응답 헤더(상태 코드, Content-Type 등)만 빠르게 확인합니다. 서버 상태 체크에 유용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">HTTP 헤더만 조회</span></div>
-          </div>
-          <div class="card" data-search="wget 파일 다운로드 download file url">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">wget &lt;URL&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">wget -O filename.zip URL (파일명 지정 다운로드). curl과 달리 재시도, 재개 기능이 내장되어 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">파일 다운로드</span></div>
-          </div>
-          <div class="card" data-search="nslookup DNS 조회 도메인 IP domain name resolve">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">nslookup &lt;도메인&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">도메인의 IP 주소를 확인합니다. DNS 문제 디버깅 시 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">DNS 조회</span></div>
-          </div>
-          <div class="card" data-search="dig 상세 DNS 조회 domain query record">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">dig &lt;도메인&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">nslookup보다 더 상세한 DNS 정보를 제공합니다. dig +short domain.com 으로 간단히 IP만 조회할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">상세 DNS 조회</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">포트 &amp; 연결</div>
-        <div class="cards">
-          <div class="card" data-search="netstat -tlnp 열린 포트 확인 open port listen tcp">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">netstat -tlnp</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-t(TCP), -l(LISTEN), -n(숫자 표시), -p(프로세스). 어떤 포트가 열려있고 어떤 프로세스가 사용 중인지 확인합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">열린 포트 확인</span></div>
-          </div>
-          <div class="card" data-search="ss -tlnp 열린 포트 확인 최신 socket statistics">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ss -tlnp</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">netstat의 최신 대체 명령어입니다. 더 빠르고 상세한 소켓 정보를 제공합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">열린 포트 확인 (최신)</span></div>
-          </div>
-          <div class="card" data-search="lsof -i 포트 점유 프로세스 port occupied process pid">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">lsof -i :&lt;포트&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">lsof -i :8080 &#x2192; 8080 포트를 사용 중인 프로세스 PID와 이름을 확인합니다. 포트 충돌 해결의 첫 단계입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">포트 점유 프로세스 확인</span></div>
-          </div>
-          <div class="card" data-search="ssh 원격 서버 접속 remote login secure shell">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">ssh &lt;유저&gt;@&lt;호스트&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">ssh -i key.pem user@server.com (키 파일 사용), ssh -p 2222 user@host (포트 지정). 서버 관리의 기본입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">원격 서버 접속</span></div>
-          </div>
-          <div class="card" data-search="scp 원격 파일 복사 remote copy upload download transfer">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">scp &lt;원본&gt; &lt;유저&gt;@&lt;호스트&gt;:&lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">scp file.txt user@server:/tmp/ (업로드), scp user@server:/tmp/file.txt . (다운로드). -r 옵션으로 디렉토리도 복사 가능합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">원격 파일 복사</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════ 시스템 & 리소스 ═══════ -->
-    <div class="tab-panel" id="panel-system" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">시스템 정보</div>
-        <div class="cards">
-          <div class="card" data-search="uname -a 시스템 정보 커널 버전 kernel version arch">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">uname -a</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">커널 버전, 호스트명, 아키텍처 등 시스템 기본 정보를 한 줄로 보여줍니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">시스템 정보 전체 출력</span></div>
-          </div>
-          <div class="card" data-search="hostname 호스트명 확인 server name">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">hostname</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 서버의 호스트명을 출력합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">호스트명 확인</span></div>
-          </div>
-          <div class="card" data-search="whoami 현재 사용자 확인 current user login">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">whoami</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 로그인한 사용자명을 출력합니다. 권한 문제 디버깅의 첫 단계입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">현재 사용자 확인</span></div>
-          </div>
-          <div class="card" data-search="uptime 서버 가동 시간 load average running time">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">uptime</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">서버가 얼마나 오래 켜져 있었는지, 현재 로드 평균(load average)을 보여줍니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">서버 가동 시간</span></div>
-          </div>
-          <div class="card" data-search="date 날짜 시간 현재 datetime timestamp timezone">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">date</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">date +"%Y-%m-%d %H:%M:%S" (형식 지정 출력). 로그 타임스탬프 확인 시 서버 시간대를 체크하는 데 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">현재 날짜/시간</span></div>
-          </div>
-          <div class="card" data-search="os-release OS 버전 확인 배포판 distribution ubuntu centos">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">cat /etc/os-release</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">Ubuntu, CentOS 등 배포판 이름과 버전을 확인합니다. 패키지 설치 시 배포판 확인이 필요할 때 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">OS 버전 확인</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">메모리 &amp; 디스크</div>
-        <div class="cards">
-          <div class="card" data-search="free -h 메모리 사용량 조회 memory usage ram available">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">free -h</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-h 옵션으로 사람이 읽기 쉬운 단위(GB, MB)로 표시합니다. total, used, free, available을 한눈에 확인할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">메모리 사용량 조회</span></div>
-          </div>
-          <div class="card" data-search="df -h 디스크 사용량 조회 disk usage filesystem space">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">df -h</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">마운트된 모든 파일시스템의 사용량/여유 공간을 표시합니다. 디스크 가득 참 문제 확인의 첫 단계입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디스크 사용량 조회</span></div>
-          </div>
-          <div class="card" data-search="du -sh 디렉토리 크기 확인 directory size summarize">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">du -sh &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">du -sh * (현재 디렉토리의 각 항목 크기). du -sh /var/log (로그 디렉토리 크기). 디스크 공간을 많이 차지하는 디렉토리를 찾을 때 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">디렉토리 크기 확인</span></div>
-          </div>
-          <div class="card" data-search="du max-depth 1단계 하위 디렉토리별 크기 subdirectory breakdown">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">du -h --max-depth=1</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">어떤 디렉토리가 공간을 많이 차지하는지 빠르게 파악할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">1단계 하위 디렉토리별 크기</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════ 압축 & 패키지 ═══════ -->
-    <div class="tab-panel" id="panel-archive" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">압축 &amp; 해제</div>
-        <div class="cards">
-          <div class="card" data-search="tar -czf tar.gz 압축 생성 create gzip compress archive">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">tar -czf &lt;이름&gt;.tar.gz &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-c(생성), -z(gzip), -f(파일명). 예: tar -czf backup.tar.gz ./src (src 디렉토리를 압축)</div>
-            </div>
-            <div class="card-body"><span class="card-desc">tar.gz 압축</span></div>
-          </div>
-          <div class="card" data-search="tar -xzf tar.gz 해제 extract decompress unpack">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">tar -xzf &lt;파일&gt;.tar.gz</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">-x(추출), -z(gzip), -f(파일명). -C 옵션으로 특정 디렉토리에 해제: tar -xzf file.tar.gz -C /tmp/</div>
-            </div>
-            <div class="card-body"><span class="card-desc">tar.gz 해제</span></div>
-          </div>
-          <div class="card" data-search="tar -xf 아카이브 해제 자동 감지 auto detect extract">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">tar -xf &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">최근 tar는 압축 형식을 자동 감지합니다. tar.gz, tar.bz2, tar.xz 모두 이 명령으로 해제 가능합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">tar 아카이브 해제 (자동 감지)</span></div>
-          </div>
-          <div class="card" data-search="zip -r zip 압축 생성 recursive archive windows">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">zip -r &lt;이름&gt;.zip &lt;경로&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">zip -r archive.zip ./project (디렉토리를 zip으로 압축). Windows 사용자에게 파일을 전달할 때 주로 사용합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">zip 압축</span></div>
-          </div>
-          <div class="card" data-search="unzip zip 해제 extract decompress">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">unzip &lt;파일&gt;.zip</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">unzip file.zip -d /target/ (특정 디렉토리에 해제). unzip -l file.zip (내용 미리보기)</div>
-            </div>
-            <div class="card-body"><span class="card-desc">zip 해제</span></div>
-          </div>
-          <div class="card" data-search="gzip 단일 파일 압축 single file compress gunzip">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">gzip &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">원본 파일이 .gz로 대체됩니다. gzip -k (원본 유지). gunzip으로 해제합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">gzip 단일 파일 압축</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">패키지 관리 (Ubuntu/Debian)</div>
-        <div class="cards">
-          <div class="card" data-search="apt update 패키지 목록 갱신 refresh package list">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">apt update</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">설치 가능한 패키지의 최신 버전 정보를 다운로드합니다. install 전에 항상 먼저 실행하세요.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">패키지 목록 갱신</span></div>
-          </div>
-          <div class="card" data-search="apt install 패키지 설치 package install software">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">apt install &lt;패키지&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">sudo apt install nginx (nginx 설치). -y 옵션으로 확인 프롬프트를 건너뛸 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">패키지 설치</span></div>
-          </div>
-          <div class="card" data-search="apt remove 패키지 제거 삭제 uninstall package">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">apt remove &lt;패키지&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">설정 파일은 남깁니다. apt purge로 설정 파일까지 완전히 제거할 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">패키지 제거</span></div>
-          </div>
-          <div class="card" data-search="apt list installed 설치된 패키지 목록 installed packages">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">apt list --installed</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">apt list --installed | grep nginx (특정 패키지가 설치되어 있는지 확인)</div>
-            </div>
-            <div class="card-body"><span class="card-desc">설치된 패키지 목록</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="cards">
-          <div class="card note-card" data-search="centos rhel yum dnf 패키지 매니저">
-            <div class="card-body"><span class="card-desc">CentOS/RHEL은 apt 대신 yum 또는 dnf를 사용합니다. 예: dnf install nginx</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══════ Vi / Vim ═══════ -->
-    <div class="tab-panel" id="panel-vim" role="tabpanel">
-
-      <div class="section-group">
-        <div class="section-title">모드 전환</div>
-        <div class="cards">
-          <div class="card" data-search="i insert 입력 모드 삽입 모드 편집">
-            <div class="card-header">
-              <div class="card-keys"><kbd>i</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 커서 위치에서 입력 모드로 전환합니다. 가장 기본적인 편집 시작 방법입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">커서 앞에서 입력 모드 시작</span></div>
-          </div>
-          <div class="card" data-search="a append 입력 모드 커서 뒤 삽입">
-            <div class="card-header">
-              <div class="card-keys"><kbd>a</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">커서 다음 위치에서 입력 모드로 전환합니다. 줄 끝에 추가할 때는 A(Shift+a)를 사용하세요.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">커서 뒤에서 입력 모드 시작</span></div>
-          </div>
-          <div class="card" data-search="o 아래 새 줄 삽입 open line below insert">
-            <div class="card-header">
-              <div class="card-keys"><kbd>o</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 줄 아래에 새 줄을 만들고 입력 모드로 전환합니다. O(Shift+o)는 위에 새 줄을 만듭니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">아래에 새 줄 삽입 후 입력 모드</span></div>
-          </div>
-          <div class="card" data-search="Esc 일반 모드 normal mode 명령 모드 탈출 escape">
-            <div class="card-header">
-              <div class="card-keys"><kbd>Esc</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">입력 모드에서 일반(Normal) 모드로 돌아갑니다. 가장 자주 누르는 키입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">일반 모드로 돌아가기</span></div>
-          </div>
-          <div class="card" data-search="v visual 비주얼 모드 선택 블록 selection">
-            <div class="card-header">
-              <div class="card-keys"><kbd>v</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">텍스트를 선택하는 비주얼 모드입니다. V(Shift+v)는 줄 단위 선택, Ctrl+v는 블록 선택입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">비주얼 모드 (텍스트 선택)</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="cards">
-          <div class="card note-card" data-search="vi vim 모드 설명 mode normal insert visual command">
-            <div class="card-body"><span class="card-desc">Vi는 모드 기반 편집기입니다. Normal(명령) &#x2192; i로 Insert(입력) &#x2192; Esc로 Normal &#x2192; :로 Command(명령줄). 모드를 헷갈릴 때는 Esc를 여러 번 누르세요.</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">저장 &amp; 종료</div>
-        <div class="cards">
-          <div class="card" data-search=":w 저장 write save file">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:w</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 파일을 저장합니다. :w filename으로 다른 이름으로 저장할 수도 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">저장</span></div>
-          </div>
-          <div class="card" data-search=":q 종료 quit exit close">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:q</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">변경사항이 없을 때 종료합니다. 변경사항이 있으면 에러가 발생합니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">종료</span></div>
-          </div>
-          <div class="card" data-search=":wq 저장 종료 write quit save exit">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:wq</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">저장하고 종료합니다. 가장 많이 사용하는 조합입니다. ZZ(Shift+z 두 번)도 같은 동작입니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">저장 후 종료</span></div>
-          </div>
-          <div class="card" data-search=":q! 저장하지 않고 종료 강제 종료 force quit discard">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:q!</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">변경사항을 버리고 강제 종료합니다. 잘못 편집했을 때 원본 상태로 되돌리고 나갈 수 있습니다.</div>
-            </div>
-            <div class="card-body"><span class="card-desc">저장하지 않고 종료</span></div>
-          </div>
-          <div class="card" data-search=":wq! 강제 저장 종료 force write quit readonly">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:wq!</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">읽기 전용 파일도 강제로 저장하고 종료합니다. (권한이 있을 경우)</div>
-            </div>
-            <div class="card-body"><span class="card-desc">강제 저장 후 종료</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <div class="section-title">커서 이동</div>
-        <div class="cards">
-          <div class="card" data-search="h j k l 이동 커서 좌 하 상 우 move left down up right">
-            <div class="card-header">
-              <div class="card-keys">
-                <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
+      <!-- ═══════ 파일 & 디렉토리 ═══════ -->
+      <div class="tab-panel active" id="panel-files" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">기본 이동 &amp; 조회</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="pwd 현재 디렉토리 경로 print working directory"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">pwd</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 위치한 디렉토리의 전체 경로를 출력합니다.
+                </div>
               </div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">h(좌), j(하), k(상), l(우). 방향키도 동작하지만, 홈 포지션에서 벗어나지 않아 빠릅니다.</div>
+              <div class="card-body">
+                <span class="card-desc">현재 작업 디렉토리 출력</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">좌 / 하 / 상 / 우 이동</span></div>
+            <div
+              class="card"
+              data-search="cd 이동 디렉토리 change directory 홈 상위"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">cd &lt;경로&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  cd ~ (홈), cd .. (상위), cd - (이전 디렉토리)로 빠르게 이동할
+                  수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">디렉토리 이동</span>
+              </div>
+            </div>
+            <div class="card" data-search="ls 목록 조회 list files directories">
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">ls</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 디렉토리의 파일과 폴더를 나열합니다. 기본적으로 숨김
+                  파일은 표시하지 않습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일/디렉토리 목록 조회</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="ls -al 상세 목록 숨김 파일 hidden all long"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">ls -al</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -a는 숨김 파일(.으로 시작), -l은 권한/소유자/크기/날짜 등 상세
+                  정보를 표시합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">상세 목록 (숨김 파일 포함)</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="ls -lh 사람 읽기 크기 human readable size"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">ls -lh</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -h 옵션으로 파일 크기를 KB, MB, GB 단위로 표시합니다. 예:
+                  4.0K, 1.2M
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">사람이 읽기 쉬운 크기 표시</span>
+              </div>
+            </div>
           </div>
-          <div class="card" data-search="gg G 파일 처음 끝 이동 top bottom first last line">
-            <div class="card-header">
-              <div class="card-keys"><kbd>gg</kbd> <kbd class="wide">G</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">gg는 파일 맨 처음, G(Shift+g)는 파일 맨 끝으로 이동합니다. 10G로 10번째 줄로 이동할 수 있습니다.</div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">파일 / 디렉토리 조작</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="mkdir 디렉토리 생성 make directory 폴더 만들기"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">mkdir &lt;이름&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  mkdir -p a/b/c 로 중간 디렉토리를 한 번에 생성할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">디렉토리 생성</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">파일 처음(gg) / 끝(G) 이동</span></div>
+            <div
+              class="card"
+              data-search="mkdir -p 중간 경로 포함 생성 parents recursive"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">mkdir -p &lt;경로&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  부모 디렉토리가 없어도 자동으로 생성합니다. 스크립트에서 자주
+                  사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">중간 경로 포함 생성</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="touch 빈 파일 생성 수정시간 갱신 create empty file"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">touch &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  파일이 없으면 새로 만들고, 있으면 수정 시간만 업데이트합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">빈 파일 생성 / 수정시간 갱신</span>
+              </div>
+            </div>
+            <div class="card" data-search="cp 복사 파일 copy file backup">
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">cp &lt;원본&gt; &lt;대상&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  cp -r 옵션으로 디렉토리를 재귀적으로 복사합니다. 예: cp
+                  file.txt file_backup.txt
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 복사</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="cp -r 디렉토리 재귀 복사 recursive copy directory"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">cp -r &lt;원본&gt; &lt;대상&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  디렉토리와 하위 내용을 모두 복사합니다. 백업 시 자주
+                  사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">디렉토리 재귀 복사</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="mv 이동 이름 변경 move rename file directory"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">mv &lt;원본&gt; &lt;대상&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  mv old.txt new.txt (이름변경), mv file.txt /tmp/ (이동). 같은
+                  명령어로 두 가지 용도로 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일/디렉토리 이동 또는 이름 변경</span>
+              </div>
+            </div>
+            <div class="card" data-search="rm 삭제 파일 remove delete file">
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">rm &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  휴지통 없이 바로 삭제됩니다! rm -i 옵션으로 삭제 전 확인을
+                  받을 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 삭제</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="rm -rf 강제 삭제 디렉토리 force recursive dangerous"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">rm -rf &lt;경로&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -r(재귀) -f(강제) 삭제. 매우 위험한 명령어입니다. 실행 전
+                  경로를 반드시 확인하세요! 특히 rm -rf / 는 절대 실행하지
+                  마세요.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >디렉토리 강제 삭제
+                  <span class="card-badge danger">주의</span></span
+                >
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="ln -s 심볼릭 링크 symbolic link symlink 바로가기"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">ln -s &lt;원본&gt; &lt;링크&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  바로가기와 비슷합니다. 원본 파일을 가리키는 링크를 만듭니다.
+                  예: ln -s /usr/local/bin/node node
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">심볼릭 링크 생성</span>
+              </div>
+            </div>
           </div>
-          <div class="card" data-search="0 $ 줄 처음 끝 이동 line start end beginning">
-            <div class="card-header">
-              <div class="card-keys"><kbd>0</kbd> <kbd>$</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">0은 줄 맨 처음, $는 줄 맨 끝으로 이동합니다. ^는 첫 번째 비공백 문자로 이동합니다.</div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">검색</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="find 파일 찾기 검색 search name pattern"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >find &lt;경로&gt; -name "&lt;패턴&gt;"</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  find . -name "*.log" (현재 디렉토리에서 .log 파일 찾기). -type
+                  f(파일만), -type d(디렉토리만) 옵션도 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 찾기</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">줄 처음(0) / 끝($) 이동</span></div>
-          </div>
-          <div class="card" data-search="w b 단어 이동 word forward backward next previous">
-            <div class="card-header">
-              <div class="card-keys"><kbd>w</kbd> <kbd>b</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">w는 다음 단어, b는 이전 단어로 이동합니다. 한 글자씩 이동하는 것보다 훨씬 빠릅니다.</div>
+            <div
+              class="card"
+              data-search="find mtime 최근 수정 파일 modified time recent days"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >find &lt;경로&gt; -mtime -&lt;일&gt;</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  find . -mtime -7 (7일 이내 수정된 파일). -mtime +30 (30일 이전
+                  파일) 등으로 오래된 파일 정리에 활용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">최근 수정된 파일 찾기</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">다음(w) / 이전(b) 단어 이동</span></div>
-          </div>
-          <div class="card" data-search=":줄번호 특정 줄 이동 go to line number jump">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:&lt;줄번호&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">:42 (42번째 줄로 이동). 에러 로그에서 줄 번호를 보고 바로 이동할 때 유용합니다.</div>
+            <div
+              class="card"
+              data-search="which 실행 파일 경로 확인 binary path command location"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">which &lt;명령어&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  which node, which python 등으로 어떤 버전의 바이너리가
+                  실행되는지 확인할 때 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">실행 파일 경로 확인</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">특정 줄로 이동</span></div>
           </div>
         </div>
       </div>
 
-      <div class="section-group">
-        <div class="section-title">편집</div>
-        <div class="cards">
-          <div class="card" data-search="dd 줄 삭제 delete line cut">
-            <div class="card-header">
-              <div class="card-keys"><kbd>dd</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 줄을 잘라냅니다 (삭제 + 클립보드 복사). 5dd로 5줄을 한 번에 삭제할 수 있습니다.</div>
+      <!-- ═══════ 파일 내용 ═══════ -->
+      <div class="tab-panel" id="panel-content" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">파일 보기</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="cat 파일 전체 내용 출력 print file contents"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">cat &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  짧은 파일을 빠르게 확인할 때 사용합니다. 긴 파일은 less를
+                  사용하세요.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 전체 내용 출력</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">현재 줄 삭제 (잘라내기)</span></div>
+            <div
+              class="card"
+              data-search="less 페이지 단위 파일 보기 pager scroll"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">less &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  방향키/Page Up·Down으로 이동, /검색어로 검색, q로 종료. 로그
+                  파일 볼 때 필수입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">페이지 단위로 파일 보기</span>
+              </div>
+            </div>
+            <div class="card" data-search="head 처음 줄 출력 first lines top">
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">head -n &lt;줄수&gt; &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  head -n 20 app.log (처음 20줄). -n 생략 시 기본 10줄을
+                  표시합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 처음 N줄 출력</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="tail 마지막 줄 출력 last lines bottom"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">tail -n &lt;줄수&gt; &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  tail -n 50 app.log (마지막 50줄). 로그 파일의 최근 내용 확인에
+                  자주 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 마지막 N줄 출력</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="tail -f 실시간 파일 추적 follow watch log realtime"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">tail -f &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  로그 파일을 실시간으로 모니터링합니다. Ctrl+C로 종료. 서버
+                  로그 디버깅 시 필수입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">실시간 파일 추적</span>
+              </div>
+            </div>
+            <div class="card" data-search="wc -l 줄 수 카운트 word count lines">
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">wc -l &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  wc -w (단어 수), wc -c (바이트 수). 파이프와 함께: cat file |
+                  wc -l
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">줄 수 카운트</span>
+              </div>
+            </div>
           </div>
-          <div class="card" data-search="yy 줄 복사 yank copy line">
-            <div class="card-header">
-              <div class="card-keys"><kbd>yy</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 줄을 복사합니다. 3yy로 3줄을 복사할 수 있습니다. 비주얼 모드에서 선택 후 y도 가능합니다.</div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">텍스트 검색 &amp; 처리</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="grep 텍스트 검색 문자열 찾기 search text pattern"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">grep "&lt;패턴&gt;" &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  grep -i (대소문자 무시), grep -r (재귀 검색), grep -n (줄 번호
+                  표시). 예: grep -rn "TODO" src/
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">텍스트 검색</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">현재 줄 복사</span></div>
-          </div>
-          <div class="card" data-search="p 붙여넣기 paste put after">
-            <div class="card-header">
-              <div class="card-keys"><kbd>p</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">커서 아래/뒤에 붙여넣습니다. P(Shift+p)는 커서 위/앞에 붙여넣습니다.</div>
+            <div
+              class="card"
+              data-search="grep -r 재귀 검색 디렉토리 recursive search project"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >grep -r "&lt;패턴&gt;" &lt;경로&gt;</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  프로젝트 전체에서 특정 문자열을 찾을 때 사용합니다. grep -rn
+                  "import express" . --include="*.js"
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">디렉토리 재귀 검색</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">붙여넣기</span></div>
-          </div>
-          <div class="card" data-search="u 실행 취소 undo 되돌리기">
-            <div class="card-header">
-              <div class="card-keys"><kbd>u</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">마지막 작업을 취소합니다. 여러 번 누르면 계속 이전 상태로 돌아갑니다.</div>
+            <div
+              class="card"
+              data-search="sort 정렬 오름차순 내림차순 숫자 sort ascending descending"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">sort &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  sort -n (숫자 정렬), sort -r (역순), sort -u (중복 제거 후
+                  정렬). 파이프와 함께 많이 사용합니다.
+                </div>
+              </div>
+              <div class="card-body"><span class="card-desc">정렬</span></div>
             </div>
-            <div class="card-body"><span class="card-desc">실행 취소 (Undo)</span></div>
-          </div>
-          <div class="card" data-search="Ctrl r redo 다시 실행 재실행">
-            <div class="card-header">
-              <div class="card-keys"><div class="key-combo"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>R</kbd></div></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">Undo를 취소합니다. u로 너무 많이 되돌렸을 때 사용합니다.</div>
+            <div
+              class="card"
+              data-search="uniq 중복 제거 연속 duplicate remove unique"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">uniq</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  보통 sort와 함께 사용: sort file.txt | uniq -c (중복 횟수
+                  표시). 로그 분석에 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">연속 중복 제거</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">다시 실행 (Redo)</span></div>
-          </div>
-          <div class="card" data-search="x 한 글자 삭제 delete character single">
-            <div class="card-header">
-              <div class="card-keys"><kbd>x</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">커서 위치의 한 글자를 삭제합니다. Delete 키와 같은 동작입니다.</div>
+            <div
+              class="card"
+              data-search="diff 두 파일 비교 차이점 compare difference"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">diff &lt;파일1&gt; &lt;파일2&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  두 파일의 차이점을 줄 단위로 보여줍니다. diff -u (unified
+                  형식)로 보면 더 읽기 쉽습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">두 파일 비교</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">한 글자 삭제</span></div>
-          </div>
-          <div class="card" data-search="dw 단어 삭제 delete word forward">
-            <div class="card-header">
-              <div class="card-keys"><kbd>dw</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">커서부터 다음 단어 시작까지 삭제합니다. d$(줄 끝까지 삭제), d0(줄 처음까지 삭제)도 유용합니다.</div>
+            <div
+              class="card"
+              data-search="awk 컬럼 추출 필드 column extract field print"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">awk '{print $N}'</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  공백으로 구분된 텍스트에서 N번째 컬럼을 추출합니다. 예: ps aux
+                  | awk '{print $2, $11}' (PID와 명령어)
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">컬럼 추출</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">단어 삭제</span></div>
-          </div>
-          <div class="card" data-search="cw 단어 변경 change word replace edit">
-            <div class="card-header">
-              <div class="card-keys"><kbd>cw</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">단어를 삭제하고 바로 입력 모드로 전환합니다. 변수명이나 단어를 빠르게 바꿀 때 유용합니다.</div>
+            <div
+              class="card"
+              data-search="sed 텍스트 치환 찾기 바꾸기 replace substitute"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">sed 's/찾기/바꾸기/g'</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  sed -i 's/old/new/g' file.txt (파일 직접 수정). 스크립트에서
+                  설정값 변경 시 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">텍스트 치환</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">단어 변경 (삭제 + 입력 모드)</span></div>
-          </div>
-          <div class="card" data-search=". 반복 마지막 명령 repeat last command dot">
-            <div class="card-header">
-              <div class="card-keys"><kbd>.</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">마지막 편집 명령을 반복합니다. 같은 작업을 여러 곳에 적용할 때 매우 강력합니다.</div>
+            <div
+              class="card"
+              data-search="xargs 파이프 입력 인자 변환 pipe arguments convert"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">xargs</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  find . -name "*.tmp" | xargs rm (찾은 파일을 삭제). 다른
+                  명령어의 출력을 인자로 전달할 때 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파이프 입력을 인자로 변환</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">마지막 명령 반복</span></div>
           </div>
         </div>
       </div>
 
-      <div class="section-group">
-        <div class="section-title">검색 &amp; 치환</div>
-        <div class="cards">
-          <div class="card" data-search="/패턴 검색 앞으로 search forward find text">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">/&lt;패턴&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">앞으로 검색합니다. n으로 다음 결과, N으로 이전 결과로 이동합니다. ?패턴은 뒤로 검색합니다.</div>
+      <!-- ═══════ 권한 & 소유자 ═══════ -->
+      <div class="tab-panel" id="panel-permission" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">권한 관리</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="chmod 권한 변경 permission change mode 755 644"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">chmod &lt;권한&gt; &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  chmod 755 script.sh (소유자:rwx, 그룹:r-x, 기타:r-x). chmod +x
+                  script.sh (실행 권한 추가). 숫자 표기: r=4, w=2, x=1
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 권한 변경</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">앞으로 검색</span></div>
+            <div
+              class="card"
+              data-search="chmod -R 디렉토리 하위 전체 권한 변경 recursive"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">chmod -R &lt;권한&gt; &lt;경로&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  chmod -R 644 logs/ (디렉토리 하위 모든 파일의 권한을
+                  변경합니다)
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">디렉토리 하위 전체 권한 변경</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="chown 소유자 변경 owner group change ownership"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >chown &lt;유저&gt;:&lt;그룹&gt; &lt;파일&gt;</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  chown www-data:www-data /var/www (웹 서버 디렉토리 소유자
+                  변경). -R 옵션으로 재귀 적용 가능합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">소유자 변경</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="umask 기본 권한 마스크 default permission mask"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">umask</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  새로 생성되는 파일/디렉토리의 기본 권한을 결정합니다. umask
+                  022가 일반적입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">기본 권한 마스크 확인/설정</span>
+              </div>
+            </div>
           </div>
-          <div class="card" data-search="n N 다음 이전 검색 결과 next previous search result">
-            <div class="card-header">
-              <div class="card-keys"><kbd>n</kbd> <kbd class="wide">N</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">n은 다음 검색 결과, N(Shift+n)은 이전 검색 결과로 이동합니다.</div>
+        </div>
+
+        <div class="section-group">
+          <div class="cards">
+            <div
+              class="card note-card"
+              data-search="권한 숫자 읽기 rwx permission number"
+            >
+              <div class="card-body">
+                <span class="card-desc"
+                  >권한 숫자 읽기: r(읽기)=4, w(쓰기)=2, x(실행)=1 &#x2192;
+                  합산. 예: 755 = rwxr-xr-x, 644 = rw-r--r--</span
+                >
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">다음(n) / 이전(N) 검색 결과</span></div>
           </div>
-          <div class="card" data-search=":%s 전체 치환 찾기 바꾸기 substitute replace all global">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:%s/찾기/바꾸기/g</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">파일 전체에서 찾아 바꿉니다. /gc로 하면 각 항목마다 확인합니다. IDE의 Find &amp; Replace와 같은 기능입니다.</div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">파일 정보</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="ls -la 권한 상세 확인 detail permission view"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">ls -la</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  drwxr-xr-x 형태로 표시됩니다. d=디렉토리, r=읽기, w=쓰기,
+                  x=실행. 첫 번째 3자리=소유자, 두 번째=그룹, 세 번째=기타
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">권한 상세 확인</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">전체 찾아 바꾸기</span></div>
-          </div>
-          <div class="card" data-search=":set number 줄번호 표시 line numbers show display">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">:set number</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">줄 번호를 표시합니다. :set nonumber로 해제. :set nu / :set nonu 약어도 사용 가능합니다.</div>
+            <div
+              class="card"
+              data-search="stat 파일 상세 메타데이터 metadata inode"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">stat &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  파일 크기, 블록 수, inode, 접근/수정/변경 시간, 권한 등 모든
+                  메타데이터를 표시합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 상세 메타데이터</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">줄 번호 표시</span></div>
+            <div
+              class="card"
+              data-search="file 파일 타입 확인 type detect identify"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">file &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  확장자에 의존하지 않고 파일의 실제 타입을 판별합니다. 예: file
+                  image.png &#x2192; PNG image data
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 타입 확인</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ═══════ 조합 & 팁 ═══════ -->
-    <div class="tab-panel" id="panel-tips" role="tabpanel">
+      <!-- ═══════ 프로세스 관리 ═══════ -->
+      <div class="tab-panel" id="panel-process" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">프로세스 조회</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="ps aux 전체 프로세스 목록 all processes list cpu memory"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">ps aux</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  a(모든 사용자), u(상세 정보), x(터미널 없는 프로세스 포함).
+                  CPU, 메모리 사용량, PID 등을 확인할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">전체 프로세스 목록</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="ps -ef 전체 프로세스 다른 형식 full format ppid parent"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">ps -ef</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -e(모든 프로세스), -f(full format). PPID(부모 PID)를 확인할 수
+                  있어 프로세스 관계를 파악하기 좋습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">전체 프로세스 (다른 형식)</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="ps aux grep 특정 프로세스 검색 filter find specific"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">ps aux | grep &lt;이름&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  ps aux | grep node (node 프로세스 찾기). grep -v grep을
+                  추가하면 grep 자체를 제외할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">특정 프로세스 검색</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="top 실시간 프로세스 모니터링 realtime monitor cpu"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">top</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  CPU/메모리 사용량 순으로 프로세스를 실시간 표시합니다. q로
+                  종료. Shift+M(메모리 순), Shift+P(CPU 순) 정렬.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">실시간 프로세스 모니터링</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="htop 향상된 프로세스 모니터링 enhanced better color tree"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">htop</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  top의 개선 버전으로 컬러 표시, 마우스 지원, 트리 뷰 등을
+                  제공합니다. 설치 필요: apt install htop
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">향상된 프로세스 모니터링</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div class="section-group">
-        <div class="section-title">파이프 &amp; 리다이렉션</div>
-        <div class="cards">
-          <div class="card" data-search="| 파이프 pipe chain 체이닝 명령어 연결">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">|</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">ps aux | grep node | awk '{print $2}' &#x2192; node 프로세스의 PID만 추출. 명령어를 체이닝하여 강력한 조합을 만들 수 있습니다.</div>
+        <div class="section-group">
+          <div class="section-title">프로세스 제어</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="kill PID 프로세스 종료 terminate sigterm signal"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">kill &lt;PID&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  프로세스에 정상 종료 신호(SIGTERM)를 보냅니다. PID는 ps
+                  명령어로 확인할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">프로세스 종료 (SIGTERM)</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">명령어 출력을 다음 명령어 입력으로 전달</span></div>
-          </div>
-          <div class="card" data-search="> 출력 파일 저장 덮어쓰기 redirect overwrite stdout">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">echo "hello" &gt; file.txt (파일에 저장). 기존 내용을 완전히 덮어씁니다.</div>
+            <div
+              class="card"
+              data-search="kill -9 강제 종료 sigkill force kill process"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">kill -9 &lt;PID&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  정상 종료가 안 될 때 사용합니다. 프로세스가 정리 작업을 할 수
+                  없으므로 최후의 수단으로 사용하세요.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >프로세스 강제 종료 (SIGKILL)
+                  <span class="card-badge danger">주의</span></span
+                >
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">출력을 파일로 저장 (덮어쓰기)</span></div>
-          </div>
-          <div class="card" data-search=">> 출력 파일 추가 append redirect 이어쓰기">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">&gt;&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">echo "new line" &gt;&gt; file.txt (기존 내용 뒤에 추가). 로그 기록 등에 사용합니다.</div>
+            <div
+              class="card"
+              data-search="killall 이름 프로세스 종료 name kill all by name"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">killall &lt;이름&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  killall node (모든 node 프로세스 종료). 여러 프로세스를 한
+                  번에 종료할 때 편리합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">이름으로 프로세스 종료</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">출력을 파일에 추가 (append)</span></div>
-          </div>
-          <div class="card" data-search="2>&1 에러 출력 표준 출력 합치기 stderr stdout merge">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">2&gt;&amp;1</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">command &gt; output.log 2&gt;&amp;1 (표준 출력과 에러를 모두 파일에 저장). 스크립트 로깅에 필수적인 패턴입니다.</div>
+            <div
+              class="card"
+              data-search="nohup 백그라운드 실행 터미널 종료 유지 background detach"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">nohup &lt;명령어&gt; &amp;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  nohup node server.js &amp; &#x2192; 터미널을 닫아도 서버가
+                  계속 실행됩니다. 출력은 nohup.out에 저장됩니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >백그라운드 실행 (터미널 종료 후 유지)</span
+                >
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">에러 출력을 표준 출력에 합치기</span></div>
-          </div>
-          <div class="card" data-search="< 파일 입력 전달 stdin redirect input">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">&lt; &lt;파일&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">mysql -u root &lt; dump.sql (SQL 파일을 MySQL에 입력)</div>
+            <div
+              class="card"
+              data-search="jobs 백그라운드 작업 목록 background job list"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">jobs</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 셸에서 실행 중인 백그라운드 작업을 보여줍니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">백그라운드 작업 목록</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">파일 내용을 입력으로 전달</span></div>
+            <div
+              class="card"
+              data-search="lsof -i 포트 사용 프로세스 확인 port process listen"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">lsof -i :&lt;포트&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  lsof -i :3000 (3000번 포트 사용 프로세스). 포트 충돌 시 어떤
+                  프로세스가 점유하고 있는지 확인할 때 필수입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >특정 포트를 사용 중인 프로세스 확인</span
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="section-group">
-        <div class="section-title">자주 쓰는 조합</div>
-        <div class="cards">
-          <div class="card" data-search="history grep 이전 명령어 검색 past command search">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">history | grep &lt;키워드&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">이전에 실행한 명령어를 키워드로 검색합니다. !123으로 123번 명령어를 재실행할 수 있습니다.</div>
+      <!-- ═══════ 네트워크 ═══════ -->
+      <div class="tab-panel" id="panel-network" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">네트워크 조회</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="ifconfig ip addr IP 주소 확인 address network interface"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">ip addr</kbd>
+                  <kbd class="cmd wide">ifconfig</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  네트워크 인터페이스별 IP 주소, MAC 주소 등을 확인합니다. 최근
+                  리눅스에서는 ip addr 사용을 권장합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">IP 주소 확인</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">이전 명령어 검색</span></div>
+            <div
+              class="card"
+              data-search="ping 네트워크 연결 확인 connectivity check host"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">ping &lt;호스트&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  ping google.com (연결 상태 확인). -c 옵션으로 횟수 지정: ping
+                  -c 4 google.com
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">네트워크 연결 확인</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="curl HTTP 요청 보내기 API 테스트 request post get"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">curl &lt;URL&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  curl -X POST -H "Content-Type: application/json" -d
+                  '{"key":"value"}' http://localhost:3000/api. API 테스트 시
+                  필수 도구입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">HTTP 요청 보내기</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="curl -I HTTP 헤더 조회 header only status code"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">curl -I &lt;URL&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  응답 헤더(상태 코드, Content-Type 등)만 빠르게 확인합니다.
+                  서버 상태 체크에 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">HTTP 헤더만 조회</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="wget 파일 다운로드 download file url"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">wget &lt;URL&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  wget -O filename.zip URL (파일명 지정 다운로드). curl과 달리
+                  재시도, 재개 기능이 내장되어 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 다운로드</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="nslookup DNS 조회 도메인 IP domain name resolve"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">nslookup &lt;도메인&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  도메인의 IP 주소를 확인합니다. DNS 문제 디버깅 시 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">DNS 조회</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="dig 상세 DNS 조회 domain query record"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">dig &lt;도메인&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  nslookup보다 더 상세한 DNS 정보를 제공합니다. dig +short
+                  domain.com 으로 간단히 IP만 조회할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">상세 DNS 조회</span>
+              </div>
+            </div>
           </div>
-          <div class="card" data-search="watch 명령어 반복 실행 repeat interval monitor polling">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">watch -n &lt;초&gt; &lt;명령어&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">watch -n 2 "df -h" (2초마다 디스크 사용량 확인). 모니터링에 유용합니다.</div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">포트 &amp; 연결</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="netstat -tlnp 열린 포트 확인 open port listen tcp"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">netstat -tlnp</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -t(TCP), -l(LISTEN), -n(숫자 표시), -p(프로세스). 어떤 포트가
+                  열려있고 어떤 프로세스가 사용 중인지 확인합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">열린 포트 확인</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">명령어 반복 실행</span></div>
-          </div>
-          <div class="card" data-search="alias 별칭 만들기 shortcut abbreviation command">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">alias &lt;이름&gt;='&lt;명령어&gt;'</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">alias ll='ls -alh' (ll로 상세 목록 조회). ~/.bashrc에 추가하면 영구 적용됩니다.</div>
+            <div
+              class="card"
+              data-search="ss -tlnp 열린 포트 확인 최신 socket statistics"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">ss -tlnp</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  netstat의 최신 대체 명령어입니다. 더 빠르고 상세한 소켓 정보를
+                  제공합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">열린 포트 확인 (최신)</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">명령어 별칭 만들기</span></div>
-          </div>
-          <div class="card" data-search="Ctrl R 히스토리 역검색 reverse search history shortcut">
-            <div class="card-header">
-              <div class="card-keys"><div class="key-combo"><kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>R</kbd></div></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">터미널에서 Ctrl+R을 누르고 타이핑하면 이전 명령어를 실시간으로 검색합니다. 매우 자주 쓰는 단축키입니다.</div>
+            <div
+              class="card"
+              data-search="lsof -i 포트 점유 프로세스 port occupied process pid"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">lsof -i :&lt;포트&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  lsof -i :8080 &#x2192; 8080 포트를 사용 중인 프로세스 PID와
+                  이름을 확인합니다. 포트 충돌 해결의 첫 단계입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">포트 점유 프로세스 확인</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">히스토리 역검색</span></div>
-          </div>
-          <div class="card" data-search="!! 직전 명령어 재실행 last command repeat sudo">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">!!</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">sudo !! &#x2192; 직전 명령어를 sudo로 다시 실행. 권한 부족으로 실패했을 때 유용합니다.</div>
+            <div
+              class="card"
+              data-search="ssh 원격 서버 접속 remote login secure shell"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">ssh &lt;유저&gt;@&lt;호스트&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  ssh -i key.pem user@server.com (키 파일 사용), ssh -p 2222
+                  user@host (포트 지정). 서버 관리의 기본입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">원격 서버 접속</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">직전 명령어 재실행</span></div>
-          </div>
-          <div class="card" data-search="&& 앞 명령 성공 시 다음 실행 and chain sequential success">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">command1 &amp;&amp; command2</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">npm install &amp;&amp; npm start (설치 성공 후 실행). 실패하면 다음 명령어를 실행하지 않습니다.</div>
+            <div
+              class="card"
+              data-search="scp 원격 파일 복사 remote copy upload download transfer"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >scp &lt;원본&gt;
+                    &lt;유저&gt;@&lt;호스트&gt;:&lt;경로&gt;</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  scp file.txt user@server:/tmp/ (업로드), scp
+                  user@server:/tmp/file.txt . (다운로드). -r 옵션으로 디렉토리도
+                  복사 가능합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">원격 파일 복사</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">앞 명령 성공 시 다음 실행</span></div>
           </div>
         </div>
       </div>
 
-      <div class="section-group">
-        <div class="section-title">환경 변수</div>
-        <div class="cards">
-          <div class="card" data-search="env 환경 변수 전체 출력 environment variables list all">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">env</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">현재 설정된 모든 환경 변수를 표시합니다. env | grep PATH 처럼 필터링해서 사용합니다.</div>
+      <!-- ═══════ 시스템 & 리소스 ═══════ -->
+      <div class="tab-panel" id="panel-system" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">시스템 정보</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="uname -a 시스템 정보 커널 버전 kernel version arch"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">uname -a</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  커널 버전, 호스트명, 아키텍처 등 시스템 기본 정보를 한 줄로
+                  보여줍니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">시스템 정보 전체 출력</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">환경 변수 전체 출력</span></div>
+            <div class="card" data-search="hostname 호스트명 확인 server name">
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">hostname</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">현재 서버의 호스트명을 출력합니다.</div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">호스트명 확인</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="whoami 현재 사용자 확인 current user login"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">whoami</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 로그인한 사용자명을 출력합니다. 권한 문제 디버깅의 첫
+                  단계입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">현재 사용자 확인</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="uptime 서버 가동 시간 load average running time"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">uptime</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  서버가 얼마나 오래 켜져 있었는지, 현재 로드 평균(load
+                  average)을 보여줍니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">서버 가동 시간</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="date 날짜 시간 현재 datetime timestamp timezone"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">date</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  date +"%Y-%m-%d %H:%M:%S" (형식 지정 출력). 로그 타임스탬프
+                  확인 시 서버 시간대를 체크하는 데 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">현재 날짜/시간</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="os-release OS 버전 확인 배포판 distribution ubuntu centos"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">cat /etc/os-release</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  Ubuntu, CentOS 등 배포판 이름과 버전을 확인합니다. 패키지 설치
+                  시 배포판 확인이 필요할 때 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">OS 버전 확인</span>
+              </div>
+            </div>
           </div>
-          <div class="card" data-search="echo $ 환경 변수 값 확인 print variable value PATH HOME">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">echo $&lt;변수명&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">echo $PATH, echo $HOME, echo $USER 등. 변수 확인의 가장 빠른 방법입니다.</div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">메모리 &amp; 디스크</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="free -h 메모리 사용량 조회 memory usage ram available"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">free -h</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -h 옵션으로 사람이 읽기 쉬운 단위(GB, MB)로 표시합니다. total,
+                  used, free, available을 한눈에 확인할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">메모리 사용량 조회</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">환경 변수 값 확인</span></div>
-          </div>
-          <div class="card" data-search="export 환경 변수 설정 set variable NODE_ENV">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">export &lt;변수&gt;=&lt;값&gt;</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">export NODE_ENV=production. 현재 셸에서만 유효합니다. 영구 적용은 ~/.bashrc에 추가하세요.</div>
+            <div
+              class="card"
+              data-search="df -h 디스크 사용량 조회 disk usage filesystem space"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">df -h</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  마운트된 모든 파일시스템의 사용량/여유 공간을 표시합니다.
+                  디스크 가득 참 문제 확인의 첫 단계입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">디스크 사용량 조회</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">환경 변수 설정</span></div>
-          </div>
-          <div class="card" data-search="source bashrc zshrc 셸 설정 다시 불러오기 reload config">
-            <div class="card-header">
-              <div class="card-keys"><kbd class="cmd wide">source ~/.bashrc</kbd></div>
-              <button class="help-btn" aria-label="상세 설명 보기">?</button>
-              <div class="tooltip">.bashrc나 .zshrc를 수정한 후 즉시 적용할 때 사용합니다. . ~/.bashrc 로도 실행 가능합니다.</div>
+            <div
+              class="card"
+              data-search="du -sh 디렉토리 크기 확인 directory size summarize"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">du -sh &lt;경로&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  du -sh * (현재 디렉토리의 각 항목 크기). du -sh /var/log (로그
+                  디렉토리 크기). 디스크 공간을 많이 차지하는 디렉토리를 찾을 때
+                  사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">디렉토리 크기 확인</span>
+              </div>
             </div>
-            <div class="card-body"><span class="card-desc">셸 설정 파일 다시 불러오기</span></div>
+            <div
+              class="card"
+              data-search="du max-depth 1단계 하위 디렉토리별 크기 subdirectory breakdown"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">du -h --max-depth=1</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  어떤 디렉토리가 공간을 많이 차지하는지 빠르게 파악할 수
+                  있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">1단계 하위 디렉토리별 크기</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </main>
+      <!-- ═══════ 압축 & 패키지 ═══════ -->
+      <div class="tab-panel" id="panel-archive" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">압축 &amp; 해제</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="tar -czf tar.gz 압축 생성 create gzip compress archive"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >tar -czf &lt;이름&gt;.tar.gz &lt;경로&gt;</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -c(생성), -z(gzip), -f(파일명). 예: tar -czf backup.tar.gz
+                  ./src (src 디렉토리를 압축)
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">tar.gz 압축</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="tar -xzf tar.gz 해제 extract decompress unpack"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">tar -xzf &lt;파일&gt;.tar.gz</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  -x(추출), -z(gzip), -f(파일명). -C 옵션으로 특정 디렉토리에
+                  해제: tar -xzf file.tar.gz -C /tmp/
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">tar.gz 해제</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="tar -xf 아카이브 해제 자동 감지 auto detect extract"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">tar -xf &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  최근 tar는 압축 형식을 자동 감지합니다. tar.gz, tar.bz2,
+                  tar.xz 모두 이 명령으로 해제 가능합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">tar 아카이브 해제 (자동 감지)</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="zip -r zip 압축 생성 recursive archive windows"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >zip -r &lt;이름&gt;.zip &lt;경로&gt;</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  zip -r archive.zip ./project (디렉토리를 zip으로 압축).
+                  Windows 사용자에게 파일을 전달할 때 주로 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">zip 압축</span>
+              </div>
+            </div>
+            <div class="card" data-search="unzip zip 해제 extract decompress">
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">unzip &lt;파일&gt;.zip</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  unzip file.zip -d /target/ (특정 디렉토리에 해제). unzip -l
+                  file.zip (내용 미리보기)
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">zip 해제</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="gzip 단일 파일 압축 single file compress gunzip"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">gzip &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  원본 파일이 .gz로 대체됩니다. gzip -k (원본 유지). gunzip으로
+                  해제합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">gzip 단일 파일 압축</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <footer>
-    <a href="https://github.com/HSRyuuu" target="_blank" rel="noopener">HSRyuuu</a>
-  </footer>
+        <div class="section-group">
+          <div class="section-title">패키지 관리 (Ubuntu/Debian)</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="apt update 패키지 목록 갱신 refresh package list"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">apt update</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  설치 가능한 패키지의 최신 버전 정보를 다운로드합니다. install
+                  전에 항상 먼저 실행하세요.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">패키지 목록 갱신</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="apt install 패키지 설치 package install software"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">apt install &lt;패키지&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  sudo apt install nginx (nginx 설치). -y 옵션으로 확인
+                  프롬프트를 건너뛸 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">패키지 설치</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="apt remove 패키지 제거 삭제 uninstall package"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">apt remove &lt;패키지&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  설정 파일은 남깁니다. apt purge로 설정 파일까지 완전히 제거할
+                  수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">패키지 제거</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="apt list installed 설치된 패키지 목록 installed packages"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">apt list --installed</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  apt list --installed | grep nginx (특정 패키지가 설치되어
+                  있는지 확인)
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">설치된 패키지 목록</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <script>
-    // ── Tab switching ──
-    const tabs = document.querySelectorAll('.tab');
-    const panels = document.querySelectorAll('.tab-panel');
+        <div class="section-group">
+          <div class="cards">
+            <div
+              class="card note-card"
+              data-search="centos rhel yum dnf 패키지 매니저"
+            >
+              <div class="card-body">
+                <span class="card-desc"
+                  >CentOS/RHEL은 apt 대신 yum 또는 dnf를 사용합니다. 예: dnf
+                  install nginx</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
+      <!-- ═══════ Vi / Vim ═══════ -->
+      <div class="tab-panel" id="panel-vim" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">모드 전환</div>
+          <div class="cards">
+            <div class="card" data-search="i insert 입력 모드 삽입 모드 편집">
+              <div class="card-header">
+                <div class="card-keys"><kbd>i</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 커서 위치에서 입력 모드로 전환합니다. 가장 기본적인 편집
+                  시작 방법입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">커서 앞에서 입력 모드 시작</span>
+              </div>
+            </div>
+            <div class="card" data-search="a append 입력 모드 커서 뒤 삽입">
+              <div class="card-header">
+                <div class="card-keys"><kbd>a</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  커서 다음 위치에서 입력 모드로 전환합니다. 줄 끝에 추가할 때는
+                  A(Shift+a)를 사용하세요.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">커서 뒤에서 입력 모드 시작</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="o 아래 새 줄 삽입 open line below insert"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>o</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 줄 아래에 새 줄을 만들고 입력 모드로 전환합니다.
+                  O(Shift+o)는 위에 새 줄을 만듭니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">아래에 새 줄 삽입 후 입력 모드</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="Esc 일반 모드 normal mode 명령 모드 탈출 escape"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>Esc</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  입력 모드에서 일반(Normal) 모드로 돌아갑니다. 가장 자주 누르는
+                  키입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">일반 모드로 돌아가기</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="v visual 비주얼 모드 선택 블록 selection"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>v</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  텍스트를 선택하는 비주얼 모드입니다. V(Shift+v)는 줄 단위
+                  선택, Ctrl+v는 블록 선택입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">비주얼 모드 (텍스트 선택)</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
+        <div class="section-group">
+          <div class="cards">
+            <div
+              class="card note-card"
+              data-search="vi vim 모드 설명 mode normal insert visual command"
+            >
+              <div class="card-body">
+                <span class="card-desc"
+                  >Vi는 모드 기반 편집기입니다. Normal(명령) &#x2192; i로
+                  Insert(입력) &#x2192; Esc로 Normal &#x2192; :로
+                  Command(명령줄). 모드를 헷갈릴 때는 Esc를 여러 번
+                  누르세요.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">저장 &amp; 종료</div>
+          <div class="cards">
+            <div class="card" data-search=":w 저장 write save file">
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">:w</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 파일을 저장합니다. :w filename으로 다른 이름으로 저장할
+                  수도 있습니다.
+                </div>
+              </div>
+              <div class="card-body"><span class="card-desc">저장</span></div>
+            </div>
+            <div class="card" data-search=":q 종료 quit exit close">
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">:q</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  변경사항이 없을 때 종료합니다. 변경사항이 있으면 에러가
+                  발생합니다.
+                </div>
+              </div>
+              <div class="card-body"><span class="card-desc">종료</span></div>
+            </div>
+            <div class="card" data-search=":wq 저장 종료 write quit save exit">
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">:wq</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  저장하고 종료합니다. 가장 많이 사용하는 조합입니다. ZZ(Shift+z
+                  두 번)도 같은 동작입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">저장 후 종료</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search=":q! 저장하지 않고 종료 강제 종료 force quit discard"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">:q!</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  변경사항을 버리고 강제 종료합니다. 잘못 편집했을 때 원본
+                  상태로 되돌리고 나갈 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">저장하지 않고 종료</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search=":wq! 강제 저장 종료 force write quit readonly"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">:wq!</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  읽기 전용 파일도 강제로 저장하고 종료합니다. (권한이 있을
+                  경우)
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">강제 저장 후 종료</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">커서 이동</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="h j k l 이동 커서 좌 하 상 우 move left down up right"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  h(좌), j(하), k(상), l(우). 방향키도 동작하지만, 홈 포지션에서
+                  벗어나지 않아 빠릅니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">좌 / 하 / 상 / 우 이동</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="gg G 파일 처음 끝 이동 top bottom first last line"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd>gg</kbd> <kbd class="wide">G</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  gg는 파일 맨 처음, G(Shift+g)는 파일 맨 끝으로 이동합니다.
+                  10G로 10번째 줄로 이동할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 처음(gg) / 끝(G) 이동</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="0 $ 줄 처음 끝 이동 line start end beginning"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>0</kbd> <kbd>$</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  0은 줄 맨 처음, $는 줄 맨 끝으로 이동합니다. ^는 첫 번째
+                  비공백 문자로 이동합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">줄 처음(0) / 끝($) 이동</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="w b 단어 이동 word forward backward next previous"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>w</kbd> <kbd>b</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  w는 다음 단어, b는 이전 단어로 이동합니다. 한 글자씩 이동하는
+                  것보다 훨씬 빠릅니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">다음(w) / 이전(b) 단어 이동</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search=":줄번호 특정 줄 이동 go to line number jump"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">:&lt;줄번호&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  :42 (42번째 줄로 이동). 에러 로그에서 줄 번호를 보고 바로
+                  이동할 때 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">특정 줄로 이동</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">편집</div>
+          <div class="cards">
+            <div class="card" data-search="dd 줄 삭제 delete line cut">
+              <div class="card-header">
+                <div class="card-keys"><kbd>dd</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 줄을 잘라냅니다 (삭제 + 클립보드 복사). 5dd로 5줄을 한
+                  번에 삭제할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">현재 줄 삭제 (잘라내기)</span>
+              </div>
+            </div>
+            <div class="card" data-search="yy 줄 복사 yank copy line">
+              <div class="card-header">
+                <div class="card-keys"><kbd>yy</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 줄을 복사합니다. 3yy로 3줄을 복사할 수 있습니다. 비주얼
+                  모드에서 선택 후 y도 가능합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">현재 줄 복사</span>
+              </div>
+            </div>
+            <div class="card" data-search="p 붙여넣기 paste put after">
+              <div class="card-header">
+                <div class="card-keys"><kbd>p</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  커서 아래/뒤에 붙여넣습니다. P(Shift+p)는 커서 위/앞에
+                  붙여넣습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">붙여넣기</span>
+              </div>
+            </div>
+            <div class="card" data-search="u 실행 취소 undo 되돌리기">
+              <div class="card-header">
+                <div class="card-keys"><kbd>u</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  마지막 작업을 취소합니다. 여러 번 누르면 계속 이전 상태로
+                  돌아갑니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">실행 취소 (Undo)</span>
+              </div>
+            </div>
+            <div class="card" data-search="Ctrl r redo 다시 실행 재실행">
+              <div class="card-header">
+                <div class="card-keys">
+                  <div class="key-combo">
+                    <kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>R</kbd>
+                  </div>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  Undo를 취소합니다. u로 너무 많이 되돌렸을 때 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">다시 실행 (Redo)</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="x 한 글자 삭제 delete character single"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>x</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  커서 위치의 한 글자를 삭제합니다. Delete 키와 같은 동작입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">한 글자 삭제</span>
+              </div>
+            </div>
+            <div class="card" data-search="dw 단어 삭제 delete word forward">
+              <div class="card-header">
+                <div class="card-keys"><kbd>dw</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  커서부터 다음 단어 시작까지 삭제합니다. d$(줄 끝까지 삭제),
+                  d0(줄 처음까지 삭제)도 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">단어 삭제</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="cw 단어 변경 change word replace edit"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>cw</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  단어를 삭제하고 바로 입력 모드로 전환합니다. 변수명이나 단어를
+                  빠르게 바꿀 때 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">단어 변경 (삭제 + 입력 모드)</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search=". 반복 마지막 명령 repeat last command dot"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd>.</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  마지막 편집 명령을 반복합니다. 같은 작업을 여러 곳에 적용할 때
+                  매우 강력합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">마지막 명령 반복</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">검색 &amp; 치환</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="/패턴 검색 앞으로 search forward find text"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">/&lt;패턴&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  앞으로 검색합니다. n으로 다음 결과, N으로 이전 결과로
+                  이동합니다. ?패턴은 뒤로 검색합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">앞으로 검색</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="n N 다음 이전 검색 결과 next previous search result"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd>n</kbd> <kbd class="wide">N</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  n은 다음 검색 결과, N(Shift+n)은 이전 검색 결과로 이동합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">다음(n) / 이전(N) 검색 결과</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search=":%s 전체 치환 찾기 바꾸기 substitute replace all global"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">:%s/찾기/바꾸기/g</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  파일 전체에서 찾아 바꿉니다. /gc로 하면 각 항목마다
+                  확인합니다. IDE의 Find &amp; Replace와 같은 기능입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">전체 찾아 바꾸기</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search=":set number 줄번호 표시 line numbers show display"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">:set number</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  줄 번호를 표시합니다. :set nonumber로 해제. :set nu / :set
+                  nonu 약어도 사용 가능합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">줄 번호 표시</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ 조합 & 팁 ═══════ -->
+      <div class="tab-panel" id="panel-tips" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">파이프 &amp; 리다이렉션</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="| 파이프 pipe chain 체이닝 명령어 연결"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">|</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  ps aux | grep node | awk '{print $2}' &#x2192; node 프로세스의
+                  PID만 추출. 명령어를 체이닝하여 강력한 조합을 만들 수
+                  있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >명령어 출력을 다음 명령어 입력으로 전달</span
+                >
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="> 출력 파일 저장 덮어쓰기 redirect overwrite stdout"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">&gt;</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  echo "hello" &gt; file.txt (파일에 저장). 기존 내용을 완전히
+                  덮어씁니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">출력을 파일로 저장 (덮어쓰기)</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search=">> 출력 파일 추가 append redirect 이어쓰기"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">&gt;&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  echo "new line" &gt;&gt; file.txt (기존 내용 뒤에 추가). 로그
+                  기록 등에 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">출력을 파일에 추가 (append)</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="2>&1 에러 출력 표준 출력 합치기 stderr stdout merge"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">2&gt;&amp;1</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  command &gt; output.log 2&gt;&amp;1 (표준 출력과 에러를 모두
+                  파일에 저장). 스크립트 로깅에 필수적인 패턴입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">에러 출력을 표준 출력에 합치기</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="< 파일 입력 전달 stdin redirect input"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">&lt; &lt;파일&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  mysql -u root &lt; dump.sql (SQL 파일을 MySQL에 입력)
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">파일 내용을 입력으로 전달</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">자주 쓰는 조합</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="history grep 이전 명령어 검색 past command search"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">history | grep &lt;키워드&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  이전에 실행한 명령어를 키워드로 검색합니다. !123으로 123번
+                  명령어를 재실행할 수 있습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">이전 명령어 검색</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="watch 명령어 반복 실행 repeat interval monitor polling"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">watch -n &lt;초&gt; &lt;명령어&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  watch -n 2 "df -h" (2초마다 디스크 사용량 확인). 모니터링에
+                  유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">명령어 반복 실행</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="alias 별칭 만들기 shortcut abbreviation command"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide"
+                    >alias &lt;이름&gt;='&lt;명령어&gt;'</kbd
+                  >
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  alias ll='ls -alh' (ll로 상세 목록 조회). ~/.bashrc에 추가하면
+                  영구 적용됩니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">명령어 별칭 만들기</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="Ctrl R 히스토리 역검색 reverse search history shortcut"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <div class="key-combo">
+                    <kbd>Ctrl</kbd><span class="key-plus">+</span><kbd>R</kbd>
+                  </div>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  터미널에서 Ctrl+R을 누르고 타이핑하면 이전 명령어를 실시간으로
+                  검색합니다. 매우 자주 쓰는 단축키입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">히스토리 역검색</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="!! 직전 명령어 재실행 last command repeat sudo"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">!!</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  sudo !! &#x2192; 직전 명령어를 sudo로 다시 실행. 권한 부족으로
+                  실패했을 때 유용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">직전 명령어 재실행</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="&& 앞 명령 성공 시 다음 실행 and chain sequential success"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">command1 &amp;&amp; command2</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  npm install &amp;&amp; npm start (설치 성공 후 실행). 실패하면
+                  다음 명령어를 실행하지 않습니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">앞 명령 성공 시 다음 실행</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-group">
+          <div class="section-title">환경 변수</div>
+          <div class="cards">
+            <div
+              class="card"
+              data-search="env 환경 변수 전체 출력 environment variables list all"
+            >
+              <div class="card-header">
+                <div class="card-keys"><kbd class="cmd wide">env</kbd></div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  현재 설정된 모든 환경 변수를 표시합니다. env | grep PATH 처럼
+                  필터링해서 사용합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">환경 변수 전체 출력</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="echo $ 환경 변수 값 확인 print variable value PATH HOME"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">echo $&lt;변수명&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  echo $PATH, echo $HOME, echo $USER 등. 변수 확인의 가장 빠른
+                  방법입니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">환경 변수 값 확인</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="export 환경 변수 설정 set variable NODE_ENV"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">export &lt;변수&gt;=&lt;값&gt;</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  export NODE_ENV=production. 현재 셸에서만 유효합니다. 영구
+                  적용은 ~/.bashrc에 추가하세요.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">환경 변수 설정</span>
+              </div>
+            </div>
+            <div
+              class="card"
+              data-search="source bashrc zshrc 셸 설정 다시 불러오기 reload config"
+            >
+              <div class="card-header">
+                <div class="card-keys">
+                  <kbd class="cmd wide">source ~/.bashrc</kbd>
+                </div>
+                <button class="help-btn" aria-label="상세 설명 보기">?</button>
+                <div class="tooltip">
+                  .bashrc나 .zshrc를 수정한 후 즉시 적용할 때 사용합니다. .
+                  ~/.bashrc 로도 실행 가능합니다.
+                </div>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">셸 설정 파일 다시 불러오기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://github.com/HSRyuuu" target="_blank" rel="noopener"
+        >HSRyuuu</a
+      >
+    </footer>
+
+    <script>
+      // ── Tab switching ──
+      const tabs = document.querySelectorAll(".tab");
+      const panels = document.querySelectorAll(".tab-panel");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const target = tab.dataset.tab;
+
+          tabs.forEach((t) => {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+          });
+          tab.classList.add("active");
+          tab.setAttribute("aria-selected", "true");
+
+          panels.forEach((p) => {
+            p.classList.remove("active");
+            if (p.id === `panel-${target}`) p.classList.add("active");
+          });
+
+          // Clear search when switching tabs
+          const searchInput = document.getElementById("searchInput");
+          if (searchInput.value) {
+            searchInput.value = "";
+            resetSearch();
+          }
         });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
+      });
 
-        panels.forEach(p => {
-          p.classList.remove('active');
-          if (p.id === `panel-${target}`) p.classList.add('active');
+      // ── Search ──
+      const searchInput = document.getElementById("searchInput");
+      const searchCount = document.getElementById("searchCount");
+      const noResults = document.getElementById("noResults");
+
+      searchInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
+
+        if (!query) {
+          resetSearch();
+          return;
+        }
+
+        // Show all panels for search
+        panels.forEach((p) => (p.style.display = "block"));
+        tabs.forEach((t) => t.classList.remove("active"));
+
+        const allCards = document.querySelectorAll(".card");
+        let visibleCount = 0;
+
+        allCards.forEach((card) => {
+          const searchText =
+            (card.dataset.search || "").toLowerCase() +
+            card.textContent.toLowerCase();
+          const match = query
+            .split(/\s+/)
+            .every((word) => searchText.includes(word));
+          card.style.display = match ? "" : "none";
+          if (match) visibleCount++;
         });
 
-        // Clear search when switching tabs
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput.value) {
-          searchInput.value = '';
+        // Hide empty sections
+        document.querySelectorAll(".section-group").forEach((group) => {
+          const visibleCards = group.querySelectorAll(
+            '.card:not([style*="display: none"])',
+          );
+          group.style.display = visibleCards.length ? "" : "none";
+        });
+
+        // Hide empty panels
+        panels.forEach((panel) => {
+          const visibleGroups = panel.querySelectorAll(
+            '.section-group:not([style*="display: none"])',
+          );
+          panel.style.display = visibleGroups.length ? "block" : "none";
+        });
+
+        searchCount.textContent = visibleCount > 0 ? `${visibleCount}건` : "";
+        noResults.classList.toggle("visible", visibleCount === 0);
+      });
+
+      function resetSearch() {
+        const allCards = document.querySelectorAll(".card");
+        allCards.forEach((card) => (card.style.display = ""));
+        document
+          .querySelectorAll(".section-group")
+          .forEach((g) => (g.style.display = ""));
+
+        // Restore tab state
+        panels.forEach((p) => {
+          p.style.display = "";
+          p.classList.remove("active");
+        });
+
+        // Activate first tab
+        tabs[0].classList.add("active");
+        panels[0].classList.add("active");
+
+        searchCount.textContent = "";
+        noResults.classList.remove("visible");
+      }
+
+      // ── Tooltip positioning ──
+      document.querySelectorAll(".help-btn").forEach((btn) => {
+        btn.addEventListener("mouseenter", function () {
+          const tooltip = this.nextElementSibling;
+          if (!tooltip) return;
+          const rect = this.getBoundingClientRect();
+          tooltip.classList.toggle("below", rect.top < 160);
+        });
+      });
+
+      // ── Keyboard shortcut: Escape to clear search, / to focus search ──
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && document.activeElement === searchInput) {
+          searchInput.value = "";
+          searchInput.blur();
           resetSearch();
         }
+        if (e.key === "/" && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        }
       });
-    });
-
-    // ── Search ──
-    const searchInput = document.getElementById('searchInput');
-    const searchCount = document.getElementById('searchCount');
-    const noResults = document.getElementById('noResults');
-
-    searchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase().trim();
-
-      if (!query) {
-        resetSearch();
-        return;
-      }
-
-      // Show all panels for search
-      panels.forEach(p => p.style.display = 'block');
-      tabs.forEach(t => t.classList.remove('active'));
-
-      const allCards = document.querySelectorAll('.card');
-      let visibleCount = 0;
-
-      allCards.forEach(card => {
-        const searchText = (card.dataset.search || '').toLowerCase() +
-          card.textContent.toLowerCase();
-        const match = query.split(/\s+/).every(word => searchText.includes(word));
-        card.style.display = match ? '' : 'none';
-        if (match) visibleCount++;
-      });
-
-      // Hide empty sections
-      document.querySelectorAll('.section-group').forEach(group => {
-        const visibleCards = group.querySelectorAll('.card:not([style*="display: none"])');
-        group.style.display = visibleCards.length ? '' : 'none';
-      });
-
-      // Hide empty panels
-      panels.forEach(panel => {
-        const visibleGroups = panel.querySelectorAll('.section-group:not([style*="display: none"])');
-        panel.style.display = visibleGroups.length ? 'block' : 'none';
-      });
-
-      searchCount.textContent = visibleCount > 0 ? `${visibleCount}건` : '';
-      noResults.classList.toggle('visible', visibleCount === 0);
-    });
-
-    function resetSearch() {
-      const allCards = document.querySelectorAll('.card');
-      allCards.forEach(card => card.style.display = '');
-      document.querySelectorAll('.section-group').forEach(g => g.style.display = '');
-
-      // Restore tab state
-      panels.forEach(p => {
-        p.style.display = '';
-        p.classList.remove('active');
-      });
-
-      // Activate first tab
-      tabs[0].classList.add('active');
-      panels[0].classList.add('active');
-
-      searchCount.textContent = '';
-      noResults.classList.remove('visible');
-    }
-
-    // ── Tooltip positioning ──
-    document.querySelectorAll('.help-btn').forEach(btn => {
-      btn.addEventListener('mouseenter', function() {
-        const tooltip = this.nextElementSibling;
-        if (!tooltip) return;
-        const rect = this.getBoundingClientRect();
-        tooltip.classList.toggle('below', rect.top < 160);
-      });
-    });
-
-    // ── Keyboard shortcut: Escape to clear search, / to focus search ──
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && document.activeElement === searchInput) {
-        searchInput.value = '';
-        searchInput.blur();
-        resetSearch();
-      }
-      if (e.key === '/' && document.activeElement !== searchInput) {
-        e.preventDefault();
-        searchInput.focus();
-      }
-    });
-  </script>
-  <script src="../sidebar.js"></script>
-</body>
+    </script>
+    <script src="../icons.js"></script>
+    <script src="../sidebar.js"></script>
+  </body>
 </html>

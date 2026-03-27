@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resources</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Pretendard:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="ai.css" />
+  </head>
+  <body>
+    <!-- Skip link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header class="header">
+      <a class="back-link" href="../index.html" aria-label="홈으로 돌아가기">
+        <span data-icon="back-arrow"></span>
+        Home
+      </a>
+      <h1>AI Resources</h1>
+      <div class="header-meta">
+        <span>AI 코딩 에이전트 생태계 유용한 리소스 모음</span>
+      </div>
+    </header>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <span data-icon="search"></span>
+      <label for="searchInput" class="sr-only">검색</label>
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="검색... (예: agent, skill, docs)"
+        autocomplete="off"
+      />
+      <span class="search-count" id="searchCount" aria-live="polite"></span>
+    </div>
+
+    <!-- Tabs -->
+    <nav class="tabs-wrapper" aria-label="카테고리 탭">
+      <div class="tabs-scroll">
+        <div class="tabs" id="tabs" role="tablist">
+          <button
+            class="tab active"
+            data-tab="agents"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-agents"
+          >
+            <span class="tab-icon" aria-hidden="true">🤖</span>Agents
+          </button>
+          <button
+            class="tab"
+            data-tab="skills"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-skills"
+          >
+            <span class="tab-icon" aria-hidden="true">⚡</span>Skills
+          </button>
+          <button
+            class="tab"
+            data-tab="docs"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-docs"
+          >
+            <span class="tab-icon" aria-hidden="true">📖</span>Docs
+          </button>
+          <button
+            class="tab"
+            data-tab="opensource"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-opensource"
+          >
+            <span class="tab-icon" aria-hidden="true">🔓</span>OpenSource
+          </button>
+          <button
+            class="tab"
+            data-tab="sites"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-sites"
+          >
+            <span class="tab-icon" aria-hidden="true">🌐</span>Sites
+          </button>
+          <button
+            class="tab"
+            data-tab="study"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-study"
+          >
+            <span class="tab-icon" aria-hidden="true">📚</span>Study
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="content-area" id="main-content">
+      <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
+
+      <!-- ═══════ Agents ═══════ -->
+      <div class="tab-panel active" id="panel-agents" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">Agent Frameworks &amp; Plugins</div>
+          <div class="cards">
+            <a
+              class="card"
+              href="https://github.com/Yeachan-Heo/oh-my-claudecode"
+              target="_blank"
+              rel="noopener"
+              data-search="oh-my-claudecode 클로드코드 플러그인 멀티 에이전트 오케스트레이션 orchestration tmux magic keywords"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">oh-my-claudecode</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >팀 중심의 멀티 에이전트 오케스트레이션 레이어, tmux 기반 병렬 작업 지원</span
+                >
+                <div class="card-url">Yeachan-Heo/oh-my-claudecode</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://github.com/affaan-m/everything-claude-code"
+              target="_blank"
+              rel="noopener"
+              data-search="everything-claude-code 클로드코드 최적화 agentshield hackathon Affaan Mustafa anthropic forum ventures"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">everything-claude-code</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >클로드 코드 성능 최적화 시스템, 28개 이상의 하위 에이전트와 125개 이상의 스킬 포함</span
+                >
+                <div class="card-url">affaan-m/everything-claude-code</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://github.com/obra/superpowers"
+              target="_blank"
+              rel="noopener"
+              data-search="superpowers AI 코딩 에이전트 SDLC TDD 워크플로우 agent coding workflow brainstorming"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">superpowers</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >TDD 및 엄격한 SDLC 방법론을 적용한 고수준 에이전트 워크플로우 프레임워크</span
+                >
+                <div class="card-url">obra/superpowers</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ Skills ═══════ -->
+      <div class="tab-panel" id="panel-skills" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">Skill Packs</div>
+          <div class="cards">
+            <a
+              class="card"
+              href="https://github.com/kepano/obsidian-skills"
+              target="_blank"
+              rel="noopener"
+              data-search="obsidian-skills 옵시디언 스킬 obsidian skill markdown json canvas vault"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">obsidian-skills</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >AI 에이전트에게 옵시디언 vault 및 마크다운 편집 기능을 가르치는 스킬</span
+                >
+                <div class="card-url">kepano/obsidian-skills</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://github.com/anthropics/skills"
+              target="_blank"
+              rel="noopener"
+              data-search="anthropic-skills anthropic 앤트로픽 claude 클로드 공식 스킬 official skill.md"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">anthropic-skills</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">Anthropic 공식 스킬 저장소, 문서 처리 및 SKILL.md 표준 구현체</span>
+                <div class="card-url">anthropics/skills</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://github.com/forrestchang/andrej-karpathy-skills"
+              target="_blank"
+              rel="noopener"
+              data-search="andrej-karpathy-skills 안드레 카파시 스킬 karpathy AI skill simplicity surgical changes"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">andrej-karpathy-skills</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >안드레이 카파시의 코딩 철학(간결함, 외과적 수정)을 반영한 가이드라인</span
+                >
+                <div class="card-url">forrestchang/andrej-karpathy-skills</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://github.com/vercel-labs/agent-skills"
+              target="_blank"
+              rel="noopener"
+              data-search="vercel-agent-skills vercel performance 퍼포먼스 skill agent next.js react optimization"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">vercel-agent-skills</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >Vercel의 웹 성능 최적화, UI 오딧 및 배포 관리 스킬 모음</span
+                >
+                <div class="card-url">vercel-labs/agent-skills</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://github.com/phuryn/pm-skills"
+              target="_blank"
+              rel="noopener"
+              data-search="pm-skills 프로덕트 매니저 product manager PM skill 스킬 strategy discovery execution"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  />
+                </svg>
+                <span class="card-name">pm-skills</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">프로덕트 매니저를 위한 100개 이상의 프레임워크 기반 에이전트 워크플로우</span>
+                <div class="card-url">phuryn/pm-skills</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ Docs ═══════ -->
+      <div class="tab-panel" id="panel-docs" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">Official Documentation</div>
+          <div class="cards">
+            <a
+              class="card"
+              href="https://platform.claude.com/docs/ko/agents-and-tools/agent-skills/overview"
+              target="_blank"
+              rel="noopener"
+              data-search="claude agent skill docs 클로드 에이전트 스킬 문서 documentation anthropic official progressive disclosure"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                  <path
+                    d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"
+                  />
+                </svg>
+                <span class="card-name">Claude Agent Skills</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >Claude 공식 에이전트 스킬 문서</span
+                >
+                <div class="card-url">platform.claude.com</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://antigravity.google/docs/skills"
+              target="_blank"
+              rel="noopener"
+              data-search="antigravity google docs skills 구글 안티그래비티 스킬 문서 documentation ide agent-first"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                  <path
+                    d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"
+                  />
+                </svg>
+                <span class="card-name">Antigravity Skills</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">Antigravity 스킬 문서 및 표준 문서</span>
+                <div class="card-url">antigravity.google</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ OpenSource ═══════ -->
+      <div class="tab-panel" id="panel-opensource" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">Open Source Projects</div>
+          <div class="cards">
+            <a
+              class="card"
+              href="https://www.agentation.com/"
+              target="_blank"
+              rel="noopener"
+              data-search="agentation 에이전트 agent framework 프레임워크 오픈소스 visual feedback annotation browser ui"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M2 12h20" />
+                  <path
+                    d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
+                  />
+                </svg>
+                <span class="card-name">Agentation</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">브라우저 UI 요소를 캡처하고 구조화된 컨텍스트로 변환하여 에이전트에 전달하는 도구</span>
+                <div class="card-url">agentation.com</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://ragplay.vercel.app/experiment"
+              target="_blank"
+              rel="noopener"
+              data-search="ragplay RAG 실험 experiment retrieval augmented generation 검색 증강 생성 playground"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
+                  />
+                </svg>
+                <span class="card-name">RAGPlay</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >RAG(검색 증강 생성) 파이프라인 시각화 및 실험을 위한 인터랙티브 플레이그라운드</span
+                >
+                <div class="card-url">ragplay.vercel.app</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ Sites ═══════ -->
+      <div class="tab-panel" id="panel-sites" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">Useful Sites</div>
+          <div class="cards">
+            <a
+              class="card"
+              href="https://skillsmp.com/"
+              target="_blank"
+              rel="noopener"
+              data-search="skillsmp skills marketplace 스킬 마켓플레이스 claude code 클로드코드 open-source community"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 01-8 0" />
+                </svg>
+                <span class="card-name">SkillsMP</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc">커뮤니티 기반의 오픈소스 에이전트 스킬 마켓플레이스 및 검색 엔진</span>
+                <div class="card-url">skillsmp.com</div>
+              </div>
+            </a>
+
+            <a
+              class="card"
+              href="https://www.x-cmd.com/"
+              target="_blank"
+              rel="noopener"
+              data-search="x-cmd CLI 커맨드라인 command line tool 도구 터미널 terminal shell modular insight"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <polyline points="4 17 10 11 4 5" />
+                  <line x1="12" y1="19" x2="20" y2="19" />
+                </svg>
+                <span class="card-name">x-cmd</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >에이전트를 터미널 전문가로 만들어주는 1,000개 이상의 모듈형 CLI 도구 모음</span
+                >
+                <div class="card-url">x-cmd.com</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ Study ═══════ -->
+      <div class="tab-panel" id="panel-study" role="tabpanel">
+        <div class="section-group">
+          <div class="section-title">Learning Resources</div>
+          <div class="cards">
+            <a
+              class="card"
+              href="https://www.promptingguide.ai/kr"
+              target="_blank"
+              rel="noopener"
+              data-search="prompting guide 프롬프트 가이드 엔지니어링 prompt engineering 한국어 llm agent rag"
+            >
+              <div class="card-header">
+                <svg
+                  class="card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                  />
+                </svg>
+                <span class="card-name">Prompting Guide</span>
+              </div>
+              <div class="card-body">
+                <span class="card-desc"
+                  >LLM 에이전트 및 RAG 구축을 위한 프롬프트 엔지니어링 종합 가이드 (한국어)</span
+                >
+                <div class="card-url">promptingguide.ai/kr</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      Curated AI coding agent resources
+      <span class="sep">|</span>
+      <a href="https://github.com/HSRyuuu" target="_blank" rel="noopener"
+        >github.com/HSRyuuu</a
+      >
+    </footer>
+
+    <script>
+      // ── Tabs ──
+      const tabs = document.querySelectorAll(".tab");
+      const panels = document.querySelectorAll(".tab-panel");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", function () {
+          const target = tab.dataset.tab;
+
+          tabs.forEach((t) => {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+          });
+          tab.classList.add("active");
+          tab.setAttribute("aria-selected", "true");
+
+          panels.forEach((p) => {
+            p.classList.remove("active");
+            if (p.id === `panel-${target}`) p.classList.add("active");
+          });
+
+          // Clear search when switching tabs
+          const searchInput = document.getElementById("searchInput");
+          if (searchInput.value) {
+            searchInput.value = "";
+            resetSearch();
+          }
+        });
+      });
+
+      // ── Search ──
+      const searchInput = document.getElementById("searchInput");
+      const searchCount = document.getElementById("searchCount");
+      const noResults = document.getElementById("noResults");
+
+      searchInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
+
+        if (!query) {
+          resetSearch();
+          return;
+        }
+
+        // Show all panels for search
+        panels.forEach((p) => (p.style.display = "block"));
+        tabs.forEach((t) => t.classList.remove("active"));
+
+        const allCards = document.querySelectorAll(".card");
+        let visibleCount = 0;
+
+        allCards.forEach((card) => {
+          const searchText =
+            (card.dataset.search || "").toLowerCase() +
+            card.textContent.toLowerCase();
+          const match = query
+            .split(/\s+/)
+            .every((word) => searchText.includes(word));
+          card.style.display = match ? "" : "none";
+          if (match) visibleCount++;
+        });
+
+        // Hide empty sections
+        document.querySelectorAll(".section-group").forEach((group) => {
+          const visibleCards = group.querySelectorAll(
+            '.card:not([style*="display: none"])',
+          );
+          group.style.display = visibleCards.length ? "" : "none";
+        });
+
+        // Hide empty panels
+        panels.forEach((panel) => {
+          const visibleGroups = panel.querySelectorAll(
+            '.section-group:not([style*="display: none"])',
+          );
+          panel.style.display = visibleGroups.length ? "block" : "none";
+        });
+
+        searchCount.textContent = visibleCount > 0 ? `${visibleCount}건` : "";
+        noResults.classList.toggle("visible", visibleCount === 0);
+      });
+
+      function resetSearch() {
+        const allCards = document.querySelectorAll(".card");
+        allCards.forEach((card) => (card.style.display = ""));
+        document
+          .querySelectorAll(".section-group")
+          .forEach((g) => (g.style.display = ""));
+
+        // Restore tab state
+        panels.forEach((p) => {
+          p.style.display = "";
+          p.classList.remove("active");
+        });
+
+        // Activate first tab
+        tabs[0].classList.add("active");
+        panels[0].classList.add("active");
+
+        searchCount.textContent = "";
+        noResults.classList.remove("visible");
+      }
+
+      // ── Keyboard shortcut: Escape to clear search, / to focus search ──
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && document.activeElement === searchInput) {
+          searchInput.value = "";
+          searchInput.blur();
+          resetSearch();
+        }
+        if (e.key === "/" && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+    </script>
+    <script src="../icons.js"></script>
+    <script src="../sidebar.js"></script>
+  </body>
+</html>
