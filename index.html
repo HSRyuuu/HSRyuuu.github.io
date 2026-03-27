@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HSRyuuu - Developer Hub</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,24 +20,24 @@
         box-sizing: border-box;
       }
       :root {
-        --bg: #FBF8F4;
-        --panel: #F3EDE4;
-        --surface: #FFFFFF;
-        --surface-hover: #FFFCF8;
-        --border: #E2D8CC;
-        --border-hover: #CFC2B2;
-        --text: #2C2420;
-        --text-dim: #8A7D70;
-        --text-faint: #B8AEA0;
-        --indigo: #B8614E;
-        --indigo-dim: rgba(184, 97, 78, 0.10);
-        --teal: #2D6356;
-        --teal-dim: rgba(45, 99, 86, 0.10);
-        --amber: #C4883A;
-        --amber-dim: rgba(196, 136, 58, 0.10);
-        --rose: #C96442;
-        --rose-dim: rgba(201, 100, 66, 0.10);
-        --violet: #9B89A8;
+        --bg: #fbf8f4;
+        --panel: #f3ede4;
+        --surface: #ffffff;
+        --surface-hover: #fffcf8;
+        --border: #e2d8cc;
+        --border-hover: #cfc2b2;
+        --text: #2c2420;
+        --text-dim: #8a7d70;
+        --text-faint: #9a9183;
+        --indigo: #b8614e; /* terracotta (legacy name) */
+        --indigo-dim: rgba(184, 97, 78, 0.1);
+        --teal: #2d6356;
+        --teal-dim: rgba(45, 99, 86, 0.1);
+        --amber: #c4883a;
+        --amber-dim: rgba(196, 136, 58, 0.1);
+        --rose: #c96442;
+        --rose-dim: rgba(201, 100, 66, 0.1);
+        --violet: #9b89a8;
         --violet-dim: rgba(155, 137, 168, 0.12);
       }
       body {
@@ -145,40 +146,93 @@
         max-width: 480px;
       }
 
-      /* Stats */
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        margin-bottom: 36px;
-      }
-      .stat {
+      /* Link card (Personal section) */
+      .link-card {
         background: var(--surface);
         border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        transition: all 0.2s;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .link-card:hover {
+        border-color: var(--border-hover);
+        background: var(--surface-hover);
+      }
+      .link-card .accent-line {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        height: 2px;
+        border-radius: 0 0 2px 2px;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .link-card:hover .accent-line {
+        opacity: 1;
+      }
+      .link-card-icon {
+        width: 40px;
+        height: 40px;
         border-radius: 10px;
-        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
       }
-      .stat-label {
-        font-size: 0.65rem;
+      .link-card-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      .link-card-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .link-card-body h3 {
+        font-size: 0.9rem;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
+        margin-bottom: 2px;
+      }
+      .link-card-body p {
+        font-size: 0.75rem;
         color: var(--text-dim);
-        margin-bottom: 4px;
       }
-      .stat-num {
-        font-size: 1.5rem;
-        font-weight: 700;
-        font-family: "JetBrains Mono", monospace;
+      .link-card-arrow {
+        color: var(--text-faint);
+        flex-shrink: 0;
+        transition: transform 0.2s;
       }
-      .stat-num.indigo {
-        color: var(--indigo);
+      .link-card:hover .link-card-arrow {
+        transform: translate(2px, -2px);
+        color: var(--text-dim);
       }
-      .stat-num.teal {
-        color: var(--teal);
+      .link-card-arrow svg {
+        width: 14px;
+        height: 14px;
       }
-      .stat-num.amber {
-        color: var(--amber);
+      .link-card.disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      .link-card.disabled:hover {
+        border-color: var(--border);
+        background: var(--surface);
+      }
+      .link-card.disabled .accent-line {
+        display: none;
+      }
+
+      /* Section divider */
+      .section-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 8px 0 32px;
       }
 
       /* Section heading */
@@ -499,17 +553,10 @@
         .card.featured {
           flex-direction: column;
         }
-        .stats {
-          grid-template-columns: repeat(3, 1fr);
-        }
-        .topbar-right {
-          display: none;
-        }
+        .topbar-right { gap: 2px; }
+        .topbar-chip { padding: 6px 8px; font-size: 0.72rem; }
       }
       @media (max-width: 480px) {
-        .stats {
-          grid-template-columns: 1fr;
-        }
         .hero h1 {
           font-size: 1.3rem;
         }
@@ -520,7 +567,7 @@
     <!-- Top bar -->
     <nav class="topbar">
       <div class="topbar-left">
-        <span class="topbar-logo">HSRyuuu</span>
+        <a href="index.html" class="topbar-logo" style="text-decoration:none;color:inherit;">HSRyuuu</a>
         <span class="topbar-sep"></span>
         <span class="topbar-label">References for developer</span>
       </div>
@@ -531,11 +578,7 @@
           target="_blank"
           rel="noopener"
         >
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-            />
-          </svg>
+          <span data-icon="github"></span>
           GitHub
         </a>
         <a
@@ -544,15 +587,7 @@
           target="_blank"
           rel="noopener"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
-            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-          </svg>
+          <span data-icon="blog"></span>
           Blog
         </a>
       </div>
@@ -567,23 +602,69 @@
           <p>개발자용 레퍼런스 모음집. 자주 찾는 정보를 모아둡니다.</p>
         </div>
 
-        <!-- Stats -->
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-label">Cheat Sheets</div>
-            <div class="stat-num indigo">3</div>
-          </div>
-          <div class="stat">
-            <div class="stat-label">Projects</div>
-            <div class="stat-num teal">0</div>
-          </div>
-          <div class="stat">
-            <div class="stat-label">Resources</div>
-            <div class="stat-num amber">0</div>
+        <!-- ═══ Personal ═══ -->
+        <div class="section-head">
+          <h2>Personal</h2>
+        </div>
+        <div class="grid" style="margin-bottom: 36px">
+          <a
+            class="link-card col-4"
+            href="https://github.com/HSRyuuu"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="accent-line" style="background: var(--text)"></div>
+            <div
+              class="link-card-icon"
+              style="background: var(--text); color: var(--surface)"
+            >
+              <span data-icon="github"></span>
+            </div>
+            <div class="link-card-body">
+              <h3>GitHub</h3>
+              <p>github.com/HSRyuuu</p>
+            </div>
+            <span class="link-card-arrow" data-icon="arrow-up-right"></span>
+          </a>
+
+          <a
+            class="link-card col-4"
+            href="https://innovation123.tistory.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="accent-line" style="background: var(--indigo)"></div>
+            <div
+              class="link-card-icon"
+              style="background: var(--indigo-dim); color: var(--indigo)"
+            >
+              <span data-icon="blog"></span>
+            </div>
+            <div class="link-card-body">
+              <h3>HSRyuuu Blog</h3>
+              <p>Tech blog &amp; dev notes</p>
+            </div>
+            <span class="link-card-arrow" data-icon="arrow-up-right"></span>
+          </a>
+
+          <div class="link-card disabled col-4" aria-disabled="true">
+            <div
+              class="link-card-icon"
+              style="background: var(--violet-dim); color: var(--violet)"
+            >
+              <span data-icon="smiley"></span>
+            </div>
+            <div class="link-card-body">
+              <h3>Flicle</h3>
+              <p>Coming soon</p>
+            </div>
+            <span class="badge wip">SOON</span>
           </div>
         </div>
 
-        <!-- Cheat Sheets -->
+        <div class="section-divider"></div>
+
+        <!-- ═══ Cheat Sheets ═══ -->
         <div class="section-head">
           <h2>Cheat Sheets</h2>
           <span class="count">3 items</span>
@@ -592,31 +673,13 @@
           <a class="card featured col-12" href="cheatsheets/claude-code.html">
             <div class="accent-line" style="background: var(--indigo)"></div>
             <div class="card-icon indigo">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <polyline points="4 17 10 11 4 5" />
-                <line x1="12" y1="19" x2="20" y2="19" />
-              </svg>
+              <span data-icon="terminal-prompt"></span>
             </div>
             <div class="card-body">
-              <div
-                style="
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                  margin-bottom: 4px;
-                "
-              >
-                <h3>Claude Code Cheat Sheet</h3>
-                <span class="badge new">NEW</span>
-              </div>
+              <h3>Claude Code Cheat Sheet</h3>
               <p>
                 Keyboard shortcuts, slash commands, MCP servers, skills, agents,
-                CLI flags &mdash; the complete reference.
+                CLI flags
               </p>
               <div class="card-tags">
                 <span class="tag">shortcuts</span>
@@ -626,36 +689,15 @@
                 <span class="tag">cli</span>
               </div>
             </div>
-            <span class="card-arrow">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <line x1="7" y1="17" x2="17" y2="7" />
-                <polyline points="7 7 17 7 17 17" />
-              </svg>
-            </span>
+            <span class="card-arrow" data-icon="arrow-up-right"></span>
           </a>
 
           <a class="card col-6" href="cheatsheets/git.html">
             <div class="accent-line" style="background: var(--rose)"></div>
             <div class="card-top">
               <div class="card-icon rose">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <circle cx="18" cy="18" r="3" />
-                  <circle cx="6" cy="6" r="3" />
-                  <path d="M13 6h3a2 2 0 012 2v7" />
-                  <path d="M6 9v12" />
-                </svg>
+                <span data-icon="git-branch"></span>
               </div>
-              <span class="badge new">NEW</span>
             </div>
             <h3>Git Cheat Sheet</h3>
             <p>기본 명령어, 브랜치, 원격, 되돌리기, rebase, stash, worktree</p>
@@ -664,7 +706,6 @@
               <span class="tag">rebase</span>
               <span class="tag">stash</span>
               <span class="tag">worktree</span>
-              <span class="tag">remote</span>
             </div>
           </a>
 
@@ -672,18 +713,8 @@
             <div class="accent-line" style="background: var(--teal)"></div>
             <div class="card-top">
               <div class="card-icon teal">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="4" y="4" width="16" height="16" rx="2" />
-                  <line x1="8" y1="9" x2="16" y2="9" />
-                  <line x1="8" y1="13" x2="14" y2="13" />
-                </svg>
+                <span data-icon="terminal"></span>
               </div>
-              <span class="badge new">NEW</span>
             </div>
             <h3>Linux Commands Cheat Sheet</h3>
             <p>파일, 프로세스, 네트워크, 권한, Vi/Vim, 압축, 시스템 명령어</p>
@@ -692,169 +723,58 @@
               <span class="tag">프로세스</span>
               <span class="tag">네트워크</span>
               <span class="tag">vim</span>
-              <span class="tag">권한</span>
             </div>
           </a>
         </div>
 
-        <!-- Projects & Resources -->
+        <div class="section-divider"></div>
+
+        <!-- ═══ Links ═══ -->
         <div class="section-head">
-          <h2>Projects &amp; Resources</h2>
-          <span class="count">coming soon</span>
+          <h2>Links</h2>
         </div>
         <div class="grid">
-          <div class="card disabled col-4">
-            <div class="card-top">
-              <div class="card-icon violet">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"
-                  />
-                </svg>
-              </div>
-              <span class="badge wip">SOON</span>
-            </div>
-            <h3>Side Projects</h3>
-            <p>Personal experiments and tools</p>
-          </div>
-
-          <div class="card disabled col-4">
+          <a class="card col-12" href="links/ai.html">
+            <div class="accent-line" style="background: var(--amber)"></div>
             <div class="card-top">
               <div class="card-icon amber">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-                  <path
-                    d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"
-                  />
-                </svg>
+                <span data-icon="link-chain"></span>
               </div>
-              <span class="badge wip">SOON</span>
+              <span class="badge new">NEW</span>
             </div>
-            <h3>Developer Resources</h3>
-            <p>Curated links, tools &amp; references</p>
-          </div>
-
-          <div class="card disabled col-4">
-            <div class="card-top">
-              <div class="card-icon rose">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                  />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
-              </div>
-              <span class="badge wip">SOON</span>
-            </div>
-            <h3>More Cheat Sheets</h3>
-            <p>Git, Docker, and more</p>
-          </div>
+            <h3>GitHub Repos &amp; Stars</h3>
+            <p>개발할 때 유용한 GitHub 저장소 모음</p>
+          </a>
         </div>
 
-        <footer>&copy; 2025 HSRyuuu</footer>
       </main>
 
       <!-- ── Right panel ── -->
       <aside class="panel">
         <div class="panel-title">Site Map</div>
         <div class="ascii-tree">
-          <a class="t-folder" href="index.html" style="cursor:pointer">hsryuuu.github.io/</a><br />
+          <a class="t-folder" href="index.html" style="cursor: pointer"
+            >hsryuuu.github.io/</a
+          ><br />
           ├── <span class="t-folder">cheatsheets/</span><br />
           │&nbsp;&nbsp; ├──
           <a class="t-active" href="cheatsheets/claude-code.html"
             >claude-code</a
           >
-          <span class="t-new">NEW</span><br />
+          <br />
           │&nbsp;&nbsp; ├──
-          <a class="t-active" href="cheatsheets/git.html">git</a>
-          <span class="t-new">NEW</span><br />
-          │&nbsp;&nbsp; ├──
-          <a class="t-active" href="cheatsheets/linux.html">linux</a>
-          <span class="t-new">NEW</span><br />
-          │&nbsp;&nbsp; └── docker <span class="t-wip">SOON</span><br />
-          ├── <span class="t-folder">projects/</span><br />
-          │&nbsp;&nbsp; └── ...<br />
-          └── <span class="t-folder">resources/</span><br />
-          &nbsp;&nbsp;&nbsp; └── ...
-        </div>
-
-        <div class="panel-links">
-          <div class="panel-title">Links</div>
-          <a
-            class="panel-link"
-            href="https://github.com/HSRyuuu"
-            target="_blank"
-            rel="noopener"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-              />
-            </svg>
-            github.com/HSRyuuu
-            <span class="external-indicator"
-              ><svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"
-                />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" /></svg
-            ></span>
-          </a>
-          <a
-            class="panel-link"
-            href="https://innovation123.tistory.com/"
-            target="_blank"
-            rel="noopener"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
-              <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-            </svg>
-            Tistory Blog
-            <span class="external-indicator"
-              ><svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"
-                />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" /></svg
-            ></span>
-          </a>
+          <a class="t-active" href="cheatsheets/git.html">git</a><br />
+          │&nbsp;&nbsp; └──
+          <a class="t-active" href="cheatsheets/linux.html">linux</a><br />
+          ├── <span class="t-folder">links/</span><br />
+          │&nbsp;&nbsp; └──
+          <a class="t-active" href="links/ai.html">ai</a>
         </div>
 
         <div class="panel-footer">Last updated: Mar 2025</div>
       </aside>
     </div>
+    <footer>&copy; 2025 HSRyuuu</footer>
+    <script src="icons.js"></script>
   </body>
 </html>
